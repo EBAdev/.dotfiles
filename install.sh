@@ -11,3 +11,7 @@ ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 
 # Then pass in the Brewfile location...
 brew bundle --file ~/.dotfiles/Brewfile
+
+# add tex snippets for ultisnips
+ln .dotfiles/tex.snippets ~/.vim/Ultisnips/tex.snippets
+
