@@ -1,11 +1,9 @@
 ## Steps to bootstrap a new Mac
 
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
-
 ```zsh
 xcode-select --install
 ```
-
 
 2. Clone repo into new hidden directory.
 
@@ -15,10 +13,11 @@ git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotf
 ```
 
 3. Run install.sh
-
 ```zsh
 ~/.dotfiles/install.sh
 ```
+
+4. Install LaTeX throgh [https://tug.org/mactex/][MacTex website]
 
 
 ## TODO List
