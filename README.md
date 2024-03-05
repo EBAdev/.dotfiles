@@ -17,7 +17,7 @@ git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotf
 ~/.dotfiles/install.sh
 ```
 
-4. Install LaTeX throgh [https://tug.org/mactex/][MacTex website]
+4. Install LaTeX on the [MacTex website](https://tug.org/mactex/)
 
 
 ## TODO List
