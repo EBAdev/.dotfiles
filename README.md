@@ -1,5 +1,5 @@
 ## Steps to bootstrap a new Mac
-hej
+
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
 
 ```zsh
