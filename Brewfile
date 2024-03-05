@@ -13,6 +13,7 @@ brew "vim"
 
 # Casks
 cask 'spotify'
+cask 'iterm2'
 cask 'visual-studio-code'
 
 # python
