@@ -19,7 +19,8 @@ git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotf
 
 4. Install LaTeX on the [MacTex website](https://tug.org/mactex/)
 
-
+5. Install firacode font by downloading .zip from [this
+   repo](https://github.com/tonsky/FiraCode)
 ## TODO List
 
 - Learn how to use [`defaults`](https://macos-defaults.com/#%F0%9F%99%8B-what-s-a-defaults-command) to record and restore System Preferences and other macOS configurations.

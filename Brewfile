@@ -2,13 +2,18 @@
 cask_args appdir: '/Applications'
 
 # install packages
-tap 'caskroom/homebrew-cask' || true
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
 
+brew "zsh"
+brew "bat"
 brew "git"
 brew "vim"
 
 # Casks
 cask 'spotify'
+cask 'visual-studio-code'
 
 # python
 brew 'python'
