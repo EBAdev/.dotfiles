@@ -10,6 +10,8 @@ brew "zsh"
 brew "bat"
 brew "git"
 brew "vim"
+brew "zsh-syntax-highlighting"
+brew "zsh-autosuggestions"
 
 # Casks
 cask 'spotify'

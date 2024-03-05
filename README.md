@@ -21,6 +21,11 @@ git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotf
 
 5. Install firacode font by downloading .zip from [this
    repo](https://github.com/tonsky/FiraCode)
+
+6. Add [this firacode NF font](https://github.com/ryanoasis/nerd-fonts/releases)
+   to iterm2.app after installation (works better with oh-my-zsh)
+
+ 
 ## TODO List
 
 - Learn how to use [`defaults`](https://macos-defaults.com/#%F0%9F%99%8B-what-s-a-defaults-command) to record and restore System Preferences and other macOS configurations.
