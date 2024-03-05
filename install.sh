@@ -15,3 +15,5 @@ brew bundle --file ~/.dotfiles/Brewfile
 # add tex snippets for ultisnips
 ln -s ~/.dotfiles/tex.snippets ~/.vim/Ultisnips/tex.snippets
 
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
