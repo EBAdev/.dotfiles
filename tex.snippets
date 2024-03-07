@@ -904,6 +904,26 @@ move_and_rename(snip.v.text)
 \end{figure}
 endsnippet
 
+
+priority 0
+snippet maple "mapleblock" i
+maple $1 maple$0
+endsnippet
+
+priority 10000
+snippet 'maple(.*)maple' "maple" wr
+`!p
+from subprocess import check_output
+command = '~/.global_py_scripts/.maple -q <<< \'latex(' + \
+		match.group(1)+');\''
+# Run the command
+s = check_output(command, shell=True)
+s= str(s.decode('utf-8')).strip()
+snip.rv = s
+`
+endsnippet
+
+
 context "math()"
 snippet min "minimum" iA
 \min 
@@ -933,6 +953,7 @@ context "math()"
 snippet sim "similar" iA
 \sim 
 endsnippet
+
 
 
 # vim:ft=snippets
