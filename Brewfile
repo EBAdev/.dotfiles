@@ -10,6 +10,7 @@ brew "zsh"
 brew "bat"
 brew "git"
 brew "vim"
+brew "nvim"
 brew "zsh-syntax-highlighting"
 brew "zsh-autosuggestions"
 

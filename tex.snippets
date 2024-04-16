@@ -24,8 +24,8 @@ $0
 endsnippet
 
 snippet chap "chapter" b
-\section{${1:${VISUAL}}}  
-\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\l$1$2$3)/g}}}
+\chapter{${1:${VISUAL}}}  
+\label{ch:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\l$1$2$3)/g}}}
 
 $0
 
@@ -52,7 +52,6 @@ endsnippet
 
 snippet sssec "subsubsection{} and label" b
 \subsubsection{${1:${VISUAL}}}
-\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\l$1$2$3)/g}}}
 
 $0
 
@@ -416,13 +415,18 @@ snippet >= "geq" iA
 endsnippet
 
 context "math()"
-snippet EE "geq" iA
-\exists 
+snippet EE "Expected value" iA
+\E 
 endsnippet
 
 context "math()"
 snippet AA "forall" iA
 \forall 
+endsnippet
+
+context "math()"
+snippet VV "Variance" iA
+\V
 endsnippet
 
 context "math()"
@@ -551,7 +555,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp)' "alias with latex" rwA
+snippet '(?<!\\)(sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup)' "alias with latex" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 

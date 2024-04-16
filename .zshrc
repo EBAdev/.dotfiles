@@ -152,6 +152,7 @@ alias prog="cd ~/Documents/AU/4.\ Semester/Introduktion\ til\ programmering/"
 alias ccmø="ln -sfn ~/Documents/AU/4.\ Semester/Mikroøkonomi\ 2/Notes ~/.current_course"
 alias ccmat="ln -sfn ~/Documents/AU/4.\ Semester/Matematisk\ Statistik/Noter  ~/.current_course"
 
+alias vim="nvim"
 # NEW CD command, changes current course also.
 function cc() {
   local abs_path
@@ -170,3 +171,7 @@ function mknote(){
 # Shell plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zathura fix for vim
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+
