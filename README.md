@@ -6,21 +6,19 @@ xcode-select --install
 ```
 
 2. Clone repo into new hidden directory.
+Setup SSH to Github using online guide. Then use SSH to clone dotfiles:
 
 ```zsh
 # Use HTTPS to clone
-git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotfiles
+git clone [SSH link] ~/.dotfiles
 ```
 
-3. Run install.sh
+3. Run install script
 ```zsh
 ~/.dotfiles/install.sh
 ```
 
 4. Install LaTeX on the [MacTex website](https://tug.org/mactex/)
-
-5. Install firacode font by downloading .zip from [this
-   repo](https://github.com/tonsky/FiraCode)
 
 6. Add [this firacode NF font](https://github.com/ryanoasis/nerd-fonts/releases)
    to iterm2.app after installation (works better with oh-my-zsh)
