@@ -115,16 +115,25 @@ source $ZSH/oh-my-zsh.sh
 source ~/.venv/bin/activate
 
 # PYTHON PATHS
+# global python
 export PYTHONPATH=${PYTHONPATH}:"/Users/emil/.python_scripts"  
 
 
 #### Shell command alias ####
 
 # quick uni cd
-alias au="cd ~/Documents/AU/4.\ Semester/"
+alias au="cd ~/Documents/AU/5.\ Semester/"
 alias au1="cd ~/Documents/AU/1.\ Semester/"
 alias au2="cd ~/Documents/AU/2.\ Semester/"
 alias au3="cd ~/Documents/AU/3.\ Semester/"
+alias au4="cd ~/Documents/AU/4.\ Semester/"
+
+
+alias mål="ccmø; cd ~/Documents/AU/5.\ Semester/Mål\ og\ Integralteori/; cc Noter/; cd .."
+alias ml="ccmø; cd ~/Documents/AU/5.\ Semester/Machine\ Learning/; cc Noter/; cd .."
+alias kon="ccmø; cd ~/Documents/AU/5.\ Semester/Konveks\ Optimering; cc Noter/; cd .."
+alias vid="ccmø; cd ~/Documents/AU/5.\ Semester/Videnskabsteori; cc Noter/; cd .."
+
 
 alias mø="ccmø; cd ~/Documents/AU/4.\ Semester/Mikroøkonomi\ 2/"
 alias mat="ccmat; cd ~/Documents/AU/4.\ Semester/Matematisk\ Statistik/"

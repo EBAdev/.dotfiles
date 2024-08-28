@@ -144,6 +144,8 @@ snippet table "Table environment" b
 \end{table}
 endsnippet
 
+
+
 snippet fig "Figure environment" b
 \begin{figure}[${1:htpb}]
 	\centering
@@ -362,11 +364,6 @@ snippet lim "limit" w
 endsnippet
 
 context "math()"
-snippet limsup "limsup" w
-\limsup_{${1:n} \to ${2:\infty}} 
-endsnippet
-
-context "math()"
 snippet prod "product" w
 \prod_{${1:i=1}}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
@@ -385,7 +382,6 @@ context "math()"
 snippet sr "^2" iA
 ^2
 endsnippet
-
 
 context "math()"
 snippet td "to the ... power" iA
@@ -541,13 +537,13 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup|max|min|sim|quad)' "alias with latex" rwA
+snippet '(?<!\\)(sup|inf|sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup|max|min|sim|quad|sgn|sign)' "alias with latex" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|zeta|int)' "alias with latex" rwA
+snippet '(?<!\\)(limsup|liminf|arcsin|arccos|arctan|arccot|arccsc|arcsec|zeta|int)' "alias with latex" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -557,8 +553,8 @@ snippet dint "integral" wA
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
-snippet ref "cleverref" rwA
-\cref{${1:fig:}
+snippet ref "ref" i
+\cref{${1:fig:}}
 endsnippet
 
 priority 100
@@ -612,7 +608,7 @@ endsnippet
 
 context "math()"
 snippet cc "subset" Ai
-\subset 
+\subseteq 
 endsnippet
 
 context "math()"
@@ -621,7 +617,7 @@ snippet notin "not in " iA
 endsnippet
 
 context "math()"
-snippet in "in " iA
+snippet inn "in " iA
 \in 
 endsnippet
 
