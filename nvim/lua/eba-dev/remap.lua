@@ -47,4 +47,20 @@ au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger 
 
 vim.api.nvim_exec(vimscript, false)
 
+-- Function to toggle YouCompleteMe
+function ToggleYouCompleteMe()
+  -- Check if YouCompleteMe is already enabled
+  if vim.g.ycm_auto_trigger == 1 then
+    -- Disable YouCompleteMe
+    vim.g.ycm_auto_trigger = 0
+    print("YouCompleteMe Disabled")
+  else
+    -- Enable YouCompleteMe
+    vim.g.ycm_auto_trigger = 1
+    print("YouCompleteMe Enabled")
+  end
+end
+
+-- Keymap to toggle YouCompleteMe with Control+Y
+vim.keymap.set("n", "<C-y>", "<cmd>lua ToggleYouCompleteMe()<CR>")
 

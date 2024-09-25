@@ -514,6 +514,7 @@ snippet mcal "mathcal" iA
 endsnippet
 
 
+priority 10
 context "math()"
 snippet xx "cross" iA
 \times 
@@ -535,9 +536,22 @@ snippet bm "bm" i
 \bm{$1}$0
 endsnippet
 
+priority 200
+context "math()"
+snippet minn "min" iA
+\min$0
+endsnippet
+
+priority 200
+context "math()"
+snippet maxx "max" iA
+\max$0
+endsnippet
+
+
 priority 100
 context "math()"
-snippet '(?<!\\)(sup|inf|sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup|max|min|sim|quad|sgn|sign)' "alias with latex" rwA
+snippet '(?<!\\)(sup|inf|sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup|sim|quad|sgn|sign|nabla)' "alias with latex" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -622,6 +636,7 @@ snippet notin "not in " iA
 \not\in 
 endsnippet
 
+priority 10
 context "math()"
 snippet inn "in " iA
 \in 
