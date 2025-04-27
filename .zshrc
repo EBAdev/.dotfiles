@@ -16,7 +16,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -110,7 +109,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh
 #
 
-
 # auto source python main venv
 source ~/.venv/bin/activate
 
@@ -118,6 +116,9 @@ source ~/.venv/bin/activate
 # global python
 export PYTHONPATH=${PYTHONPATH}:"/Users/emil/.python_scripts"  
 
+
+# add Ltex language server to path
+export PATH="$HOME/ltex-ls/bin:$PATH"
 
 #### Shell command alias ####
 
@@ -127,21 +128,15 @@ alias au1="cd ~/Documents/AU/1.\ Semester/"
 alias au2="cd ~/Documents/AU/2.\ Semester/"
 alias au3="cd ~/Documents/AU/3.\ Semester/"
 alias au4="cd ~/Documents/AU/4.\ Semester/"
+alias au5="cd ~/Documents/AU/5.\ Semester/"
+alias au6="cd ~/Documents/AU/6.\ Semester/"
 
 
-alias mål="ccmø; cd ~/Documents/AU/5.\ Semester/Mål\ og\ Integralteori/; cc Noter/; cd .."
-alias ml="ccmø; cd ~/Documents/AU/5.\ Semester/Machine\ Learning/; cc Noter/; cd .."
-alias kon="ccmø; cd ~/Documents/AU/5.\ Semester/Konveks\ Optimering; cc Noter/; cd .."
-alias vid="ccmø; cd ~/Documents/AU/5.\ Semester/Videnskabsteori; cc Noter/; cd .."
-
-
-alias mø="ccmø; cd ~/Documents/AU/4.\ Semester/Mikroøkonomi\ 2/"
-alias mat="ccmat; cd ~/Documents/AU/4.\ Semester/Matematisk\ Statistik/"
-alias prog="cd ~/Documents/AU/4.\ Semester/Introduktion\ til\ programmering/"
+alias vid="cd ~/Documents/AU/6.\ Semester/Videregående\ Sandsynlighedsteori/;  cc Noter/; cd .."
+alias pro="cd ~/Documents/AU/6.\ Semester/Stokastiske\ Processer/; cc Noter/; cd .."
+alias bsc="cd ~/Documents/AU/6.\ Semester/Bachelorprojekt/projekt/"
 
 # current course
-alias ccmø="ln -sfn ~/Documents/AU/4.\ Semester/Mikroøkonomi\ 2/Notes ~/.current_course"
-alias ccmat="ln -sfn ~/Documents/AU/4.\ Semester/Matematisk\ Statistik/Noter  ~/.current_course"
 
 alias vim="nvim"
 # NEW CD command, changes current course also.
@@ -162,5 +157,3 @@ function mknote(){
 # Shell plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-

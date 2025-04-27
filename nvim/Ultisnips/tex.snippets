@@ -365,7 +365,7 @@ endsnippet
 
 context "math()"
 snippet prod "product" w
-\prod_{${1:i=1}}}^{${2:\infty}} ${3:${VISUAL}} $0
+\prod_{${1:i=1}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
 context "math()"
@@ -426,6 +426,21 @@ endsnippet
 context "math()"
 snippet VV "Variance" iA
 \V
+endsnippet
+
+context "math()"
+snippet LL "Script L" iA
+\L
+endsnippet
+
+context "math()"
+snippet MM "Script M" iA
+\M
+endsnippet
+
+context "math()"
+snippet FF "Script F" iA
+\F
 endsnippet
 
 context "math()"
@@ -528,8 +543,14 @@ endsnippet
 
 context "math()"
 snippet norm "norm" iA
-\|$1\|$0
+\norm{$1}$0
 endsnippet
+
+context "math()"
+snippet abs "norm" iA
+\abs{$1}$0
+endsnippet
+
 
 context "math()"
 snippet bm "bm" i
@@ -551,7 +572,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sup|inf|sin|cos|tan|arccot|cot|csc|ln|log|exp|star|perp|cap|cup|sim|quad|sgn|sign|nabla)' "alias with latex" rwA
+snippet '(?<!\\)(sup|inf|sin|cos|cov|tan|arccot|tilde|cot|csc|ln|log|exp|star|perp|cap|cup|sim|quad|sgn|sign|nabla)' "alias with latex" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -567,21 +588,34 @@ snippet dint "integral" wA
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
+context "math()"
+snippet dd "diff" iA
+\d
+endsnippet
+
 snippet ref "ref" i
-\cref{${1:fig:}}
+\Cref{${1:fig:}}
 endsnippet
+
 
 priority 100
 context "math()"
-snippet -> "to" iA
+snippet too "to" iA
 \to 
 endsnippet
 
 priority 100
 context "math()"
-snippet to "to" iA
-\to 
+snippet mto "to" iA
+\mapsto 
 endsnippet
+
+priority 100
+context "math()"
+snippet top "to" iA
+\top 
+endsnippet
+
 
 priority 200
 context "math()"
@@ -617,7 +651,7 @@ endsnippet
 
 context "math()"
 snippet || "mid" iA
- \mid 
+\mid 
 endsnippet
 
 context "math()"
@@ -677,6 +711,21 @@ endsnippet
 context "math()"
 snippet ZZ "Z" iA
 \Z
+endsnippet
+
+context "math()"
+snippet CC "C" iA
+\C
+endsnippet
+
+context "math()"
+snippet BB "B" iA
+\B
+endsnippet
+
+context "math()"
+snippet MM "M" iA
+\M
 endsnippet
 
 context "math()"
@@ -784,7 +833,6 @@ context "math()"
 snippet @F "phi" iA
 \Phi
 endsnippet
-
 context "math()"
 snippet @p "pi" iA
 \pi
