@@ -9,14 +9,15 @@ endglobal
 
 
 snippet preamble "Basic template" b
-\documentclass[a4paper,oneside,article,english]{memoir}
+\documentclass[a4paper,oneside,article,${1:english}]{memoir}
 % remember to change language
+\selectlanguage{${2:english}}
+\input{../../${3:en}-preamble.tex}
 
-\input{../../en-preamble.tex}
-
-\title{$1}
+\title{$4}
 \author{Emil Beck Aagaard Korneliussen}
-\date{${3:Afleveringsfrist: }}
+\date{${5:Afleveringsfrist: }}
+
 
 \begin{document}
 \maketitle
@@ -25,6 +26,12 @@ $0
 
 \end{document}
 endsnippet
+
+snippet lang "inserts selectlanguage command" b
+\selectlanguage{${1:danish}}
+$0
+endsnippet
+	
 
 snippet chap "chapter" b
 \chapter{${1:${VISUAL}}}  

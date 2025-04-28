@@ -10,7 +10,7 @@ vim.cmd("syntax enable")
 -- viewer method:
 vim.g.vimtex_view_method = 'skim'
 
-vim.g.vimtex_quickfix_ignore_filters = {'theHpagenote', 'Font Warning'}
+vim.g.vimtex_quickfix_ignore_filters = {'theHpagenote', 'Font Warning', 'FiXme'}
 
 -- Stop quickfix window from opening
 --vim.g.vimtex_quickfix_enabled = 0

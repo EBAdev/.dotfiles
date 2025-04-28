@@ -23,10 +23,33 @@ return require('packer').startup(function(use)
 	use( 'theprimeagen/harpoon')
 	use('mbbill/undotree')
 	use('lervag/vimtex')
-	use('SirVer/ultisnips')
+
+  -- LSP stuff
+  use('williamboman/mason.nvim')
+  use('williamboman/mason-lspconfig.nvim')
+  use('neovim/nvim-lspconfig')
+  use( 'hrsh7th/cmp-nvim-lsp')
+  use( 'hrsh7th/cmp-buffer')
+  use('hrsh7th/cmp-path')
+  use( 'hrsh7th/cmp-cmdline')
+  use( 'hrsh7th/nvim-cmp')
+  use {'SirVer/ultisnips',
+  requires = {{'honza/vim-snippets', rtp = '.'}},
+  config = function()      
+    vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'      
+    vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+    vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+    vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
+    vim.g.UltiSnipsRemoveSelectModeMappings = 0
+  end
+}
+  use('quangnguyen30192/cmp-nvim-ultisnips')
+
+
+
 
 	--- Auto completion with YCM ---
-	use('ycm-core/YouCompleteMe')
+	--use('ycm-core/YouCompleteMe')
 	--- 	Important 	---
 	-- When installing YCM the server does not work initially, since it requires a build.
 	-- To do this complete the following steps
@@ -45,7 +68,7 @@ return require('packer').startup(function(use)
 		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 	}
   use('goolord/alpha-nvim')
-  use('williamboman/mason.nvim')
-  use('williamboman/mason-lspconfig.nvim')
-  use('neovim/nvim-lspconfig')
 end)
+
+
+
