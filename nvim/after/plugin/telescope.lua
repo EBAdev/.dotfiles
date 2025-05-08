@@ -40,7 +40,7 @@ end, { noremap = true, desc = "Toggle telescope ignore patterns" })
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {}) -- fuzzyfind all files
-vim.keymap.set('n', '<C-p>', builtin.git_files, {}) -- fuzzyfind git files only
+vim.keymap.set('n', '<leader>gf', builtin.git_files, {}) -- fuzzyfind git files only
 vim.keymap.set('n', '<leader>ps', function()
   local input = vim.fn.input("Grep For > ")
   if input ~= "" then
