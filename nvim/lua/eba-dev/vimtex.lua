@@ -14,7 +14,6 @@ vim.g.vimtex_quickfix_ignore_filters = {'theHpagenote', 'Font Warning', 'FiXme'}
 
 -- Stop quickfix window from opening
 --vim.g.vimtex_quickfix_enabled = 0
---
 
 
 --- VIMTEX remaps

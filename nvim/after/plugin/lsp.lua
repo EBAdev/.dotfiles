@@ -15,8 +15,8 @@ cmp.setup ({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    --completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(), 
   },
   mapping = {
     ["<Tab>"] = cmp.mapping({
@@ -121,9 +121,9 @@ cmp.setup ({
   },
   -- ... Other configuration ...
   sources = cmp.config.sources({
-
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
+    { name = 'vimtex'}
   }, {
     { name = 'buffer' },
   })

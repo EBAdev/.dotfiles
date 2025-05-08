@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/Users/emil/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["cmp-vimtex"] = {
+    loaded = true,
+    path = "/Users/emil/.local/share/nvim/site/pack/packer/start/cmp-vimtex",
+    url = "https://github.com/micangl/cmp-vimtex"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/emil/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -182,11 +187,6 @@ _G.packer_plugins = {
     path = "/Users/emil/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/Users/emil/.local/share/nvim/site/pack/packer/start/vim-snippets/.",
-    url = "https://github.com/honza/vim-snippets"
-  },
   vimtex = {
     loaded = true,
     path = "/Users/emil/.local/share/nvim/site/pack/packer/start/vimtex",
@@ -195,10 +195,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Runtimepath customization
-time([[Runtimepath customization]], true)
-vim.o.runtimepath = vim.o.runtimepath .. ",/Users/emil/.local/share/nvim/site/pack/packer/start/vim-snippets/."
-time([[Runtimepath customization]], false)
 -- Config for: ultisnips
 time([[Config for ultisnips]], true)
 try_loadstring("\27LJ\2\nÌ\2\0\0\2\0\v\0\0216\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0'\1\a\0=\1\6\0006\0\0\0009\0\1\0'\1\t\0=\1\b\0006\0\0\0009\0\1\0)\1\0\0=\1\n\0K\0\1\0&UltiSnipsRemoveSelectModeMappings\15<c-x><c-s>\26UltiSnipsListSnippets$<Plug>(ultisnips_jump_backward)!UltiSnipsJumpBackwardTrigger#<Plug>(ultisnips_jump_forward) UltiSnipsJumpForwardTrigger\29<Plug>(ultisnips_expand)\27UltiSnipsExpandTrigger\6g\bvim\0", "config", "ultisnips")
