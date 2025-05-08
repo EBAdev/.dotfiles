@@ -19,6 +19,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 
+
+-- remap to open vim-fugitive
 vim.keymap.set("n", "<leader>gs", function()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
@@ -35,3 +37,5 @@ vim.keymap.set("n", "<leader>gs", function()
   vim.cmd("G")
 end, { desc = "Toggle Fugitive Git status" })
 
+-- remap to push
+vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Git push" })
