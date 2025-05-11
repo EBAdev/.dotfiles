@@ -1,4 +1,3 @@
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -7,7 +6,7 @@ vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>w", ":w!<CR>")
 vim.keymap.set("n", "<leader>q", ":q!<CR>")
 
-vwm.g.netrw_list_hide = "*.aux, *.pdf, *.png, *.DS_Store, *.log, *.fls, *.out, *.toc, *.gz, *.fdb_latexmk, *.synctex"
+vim.g.netrw_list_hide = "*.aux, *.pdf, *.png, *.DS_Store, *.log, *.fls, *.out, *.toc, *.gz, *.fdb_latexmk, *.synctex"
 
 
 -- Autocommand for file explorer to give numbers
@@ -22,7 +21,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 
 -- remap to open vim-fugitive
-vim.keymap.set("n", "<leader>gs", function()
+vim.keymap.set("n", "<leader>g", function()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
     local name = vim.api.nvim_buf_get_name(buf)
