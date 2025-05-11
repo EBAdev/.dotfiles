@@ -16,7 +16,7 @@ cmp.setup ({
   },
   window = {
     --completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(), 
+    documentation = cmp.config.window.bordered(),
   },
   mapping = {
     ["<Tab>"] = cmp.mapping({
@@ -119,16 +119,24 @@ cmp.setup ({
     }),
     -- ... Other mappings ...
   },
-  -- ... Other configuration ...
+  -- ... Default sources configuration ...
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
-    { name = 'vimtex'}
   }, {
     { name = 'buffer' },
   })
-
 })
+
+-- Disable 'buffer' source specifically for LaTeX (tex) files
+cmp.setup.filetype('tex', {
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
+    { name = 'vimtex' },
+  })
+})
+
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
