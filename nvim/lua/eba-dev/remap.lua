@@ -5,9 +5,9 @@ vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>w", ":w!<CR>")
-vim.keymap.set("n", "<leader>q", ":wq!<CR>")
+vim.keymap.set("n", "<leader>q", ":q!<CR>")
 
-vim.g.netrw_list_hide = "*.aux, *.pdf, *.png, *.DS_Store, *.log, *.fls, *.out, *.toc, *.gz, *.fdb_latexmk, *.synctex"
+vwm.g.netrw_list_hide = "*.aux, *.pdf, *.png, *.DS_Store, *.log, *.fls, *.out, *.toc, *.gz, *.fdb_latexmk, *.synctex"
 
 
 -- Autocommand for file explorer to give numbers
