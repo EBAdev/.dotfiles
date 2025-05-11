@@ -3,8 +3,9 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>w", ":w!<CR>")
+vim.keymap.set("n", "<leader>q", ":wq!<CR>")
 
 vim.g.netrw_list_hide = "*.aux, *.pdf, *.png, *.DS_Store, *.log, *.fls, *.out, *.toc, *.gz, *.fdb_latexmk, *.synctex"
 
