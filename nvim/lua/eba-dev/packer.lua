@@ -52,6 +52,7 @@ return require('packer').startup(function(use)
 		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 	}
   use('goolord/alpha-nvim')
+  use('theprimeagen/vim-be-good')
 end)
 
 
