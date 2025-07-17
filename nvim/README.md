@@ -1,25 +1,19 @@
-# kickstart.nvim
+# Neovim Configuration
+
+This is my personal Neovim configuration, which I use as a starting point for
+my own Neovim setups. It is designed to be simple, easy to understand.
 
 ## Introduction
 
-A starting point for Neovim that is:
+We use [Neovim](https://neovim.io/) as our text editor, and this repository extends kickstart.nvim
+to provide a more comprehensive and feature-rich configuration. Kickstart.nvim is a
+minimal Neovim configuration that serves as a starting point for users who want to
+explore and customize their Neovim setup. It includes essential plugins, settings,
+and keybindings to help users get started quickly.
 
-* Small
-* Single-file
-* Completely Documented
 
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
 
-## Installation
-
-### Install Neovim
-
-Kickstart.nvim targets *only* the latest
-['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
-['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
-If you are experiencing issues, please make sure you have the latest versions.
-
-### Install External Dependencies
+## External Dependencies
 
 External Requirements:
 - Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
@@ -38,7 +32,7 @@ External Requirements:
 > See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
 > and quick install snippets
 
-### Install Kickstart
+### Install My Neovim Configuration  
 
 > [!NOTE]
 > [Backup](#FAQ) your previous configuration (if any exists)
@@ -65,7 +59,7 @@ You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
 too - it's ignored in the kickstart repo to make maintenance easier, but it's
 [recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
 
-#### Clone kickstart.nvim
+#### Clone the Repository 
 
 > [!NOTE]
 > If following the recommended step above (i.e., forking the repo), replace
@@ -109,16 +103,10 @@ the current plugin status. Hit `q` to close the window.
 #### Read The Friendly Documentation
 
 Read through the `init.lua` file in your configuration folder for more
-information about extending and exploring Neovim. That also includes
-examples of adding popularly requested plugins.
+information about extending and exploring Neovim. 
 
 > [!NOTE]
 > For more information about a particular plugin check its repository's documentation.
-
-
-### Getting Started
-
-[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
 
 ### FAQ
 

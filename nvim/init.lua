@@ -1,7 +1,7 @@
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
---
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -11,7 +11,6 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.o.number = true
 vim.o.relativenumber = true
-
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
@@ -65,6 +64,12 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 vim.o.confirm = true
 
+-- indentation settings
+vim.o.tabstop = 2 -- Number of spaces that a <Tab> counts for while editing
+vim.o.softtabstop = 2 -- Number of spaces that a <Tab> counts for while editing
+vim.o.expandtab = true -- Use spaces instead of tabs
+vim.o.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
+
 -- NOTE: [[ Keymaps ]]
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -102,6 +107,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
+  end,
+})
+
+-- Hide Copilot suggestions when CMP menu is open
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpMenuOpen',
+  callback = function()
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpMenuClose',
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
   end,
 })
 
@@ -270,6 +290,31 @@ require('lazy').setup({
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
+  },
+  -- NOTE :GitHub Copilot Configuration
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    config = function()
+      require('copilot').setup {
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = '<CR>',
+          },
+        },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          gitcommit = true,
+          gitrebase = true,
+          text = true,
+        },
+        panel = { enabled = false },
+      }
+    end,
   },
   {
     -- NOTE: Main LSP Configuration
@@ -539,6 +584,7 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       -- Snippet Engine
+
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
@@ -560,16 +606,51 @@ require('lazy').setup({
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
             end,
+            opts = { exclude = 'latex' },
           },
         },
-        opts = { exclude = { 'latex' } },
+      },
+      {
+        'giuxtaposition/blink-cmp-copilot',
       },
       'folke/lazydev.nvim',
     },
-    --- @module 'blink.cmp'
-    --- @type blink.cmp.Config
-    opts = {
-      keymap = {
+    -- NOTE: [[ Blink.cmp Configuration ]]
+
+    config = function()
+      local cmp = require 'blink.cmp'
+      local copilot = require 'copilot.suggestion'
+
+      cmp.setup {
+        keymap = {
+          preset = 'super-tab',
+
+          -- Override just the Tab entry to work with Copilot
+          ['<Tab>'] = {
+            -- first try our custom function
+            function(c) -- c = cmp
+              -- if cmp is visible, accept the current completion
+
+              if c.is_visible() then
+                return c.select_and_accept()
+              end
+              -- next, if Copilot has inline suggestion, accept it
+              if copilot.is_visible() then
+                return copilot.accept()
+              end
+              -- otherwise fall back to the normal select‑and‑accept
+              return c.select_and_accept()
+            end,
+            -- then still do the normal snippet‑forward step (so you can tab out of snippets)
+            'snippet_forward',
+            -- finally, if nothing applied, fall back to your usual <Tab>
+            'fallback',
+          },
+        },
+
+        -- NOTE: No Copilot Configuration
+        --
+        --keymap = {
         -- 'default' (recommended) for mappings similar to built-in completions
         --   <c-y> to accept ([y]es) the completion.
         --    This will auto-import if your LSP supports it.
@@ -591,47 +672,54 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'super-tab',
+        -- preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-      },
+        -- },
+        --
 
-      appearance = {
-        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
-      },
-
-      completion = {
-        -- By default, you may press `<c-space>` to show the documentation.
-        -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
-      },
-
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        appearance = {
+          -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+          -- Adjusts spacing to ensure icons are aligned
+          nerd_font_variant = 'mono',
         },
-      },
 
-      snippets = { preset = 'luasnip' },
+        completion = {
+          -- By default, you may press `<c-space>` to show the documentation.
+          -- Optionally, set `auto_show = true` to show the documentation after a delay.
+          documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        },
 
-      -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
-      -- which automatically downloads a prebuilt binary when enabled.
-      --
-      -- By default, we use the Lua implementation instead, but you may enable
-      -- the rust implementation via `'prefer_rust_with_warning'`
-      --
-      -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+        sources = {
+          default = { 'lsp', 'path', 'snippets', 'lazydev', 'copilot' },
+          providers = {
+            lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+            copilot = {
+              name = 'copilot',
+              module = 'blink-cmp-copilot',
+              score_offset = 100,
+              async = true,
+            },
+          },
+        },
 
-      -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true },
-    },
+        snippets = { preset = 'luasnip' },
+
+        -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
+        -- which automatically downloads a prebuilt binary when enabled.
+        --
+        -- By default, we use the Lua implementation instead, but you may enable
+        -- the rust implementation via `'prefer_rust_with_warning'`
+        --
+        -- See :h blink-cmp-config-fuzzy for more information
+        fuzzy = { implementation = 'lua' },
+
+        -- Shows a signature help window while you type arguments for a function
+        signature = { enabled = true },
+      }
+    end,
   },
-
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -720,7 +808,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug', -- Enable if in need of debugger
   --require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint', -- linting (currently only for markdown)
+  -- require 'kickstart.plugins.lint', -- linting (currently only for markdown)
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree', -- file explorer
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -756,4 +844,5 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- sets tabstop=2, softtabstop=2, shiftwidth=4 and expandtab
--- vim: ts=2 sts=2 sw=2 et
+
+-- Vim: ts=2 sts=2 sw=2 et
