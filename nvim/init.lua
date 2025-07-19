@@ -301,9 +301,6 @@ require('lazy').setup({
           enabled = true,
           auto_trigger = true,
           debounce = 75,
-          keymap = {
-            accept = '<CR>',
-          },
         },
         filetypes = {
           yaml = true,
@@ -311,6 +308,7 @@ require('lazy').setup({
           gitcommit = true,
           gitrebase = true,
           text = true,
+          tex = false,
         },
         panel = { enabled = false },
       }
@@ -480,7 +478,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         pyright = {}, -- Python
-        texlab = {}, -- LaTeX completion
+        --texlab = {}, -- LaTeX completion
         ltex = {
           settings = {
             latex = {
@@ -604,9 +602,17 @@ require('lazy').setup({
           {
             'rafamadriz/friendly-snippets',
             config = function()
-              require('luasnip.loaders.from_vscode').lazy_load()
+              require('luasnip.loaders.from_vscode').lazy_load {
+                exclude = { 'latex', 'tex' }, -- Exclude LaTeX snippets, since they conflict with `custom snippets`
+              }
+              -- Load custom snippets from the `LuaSnip` directory
+              require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/lua/LuaSnip/' }
+
+              require('luasnip').config.set_config { -- Setting LuaSnip config
+                -- Enable autotriggered snippets
+                enable_autosnippets = true,
+              }
             end,
-            opts = { exclude = 'latex' },
           },
         },
       },
@@ -630,7 +636,6 @@ require('lazy').setup({
             -- first try our custom function
             function(c) -- c = cmp
               -- if cmp is visible, accept the current completion
-
               if c.is_visible() then
                 return c.select_and_accept()
               end
@@ -786,6 +791,7 @@ require('lazy').setup({
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
+        disable = { 'latex' }, -- we will use VimTex
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
