@@ -636,7 +636,9 @@ require('lazy').setup({
 
           -- Override just the Tab entry to work with Copilot
           ['<Tab>'] = {
-            -- first try our custom function
+            -- first if possible do the normal snippet‑forward step (so you can tab out of snippets)
+            'snippet_forward',
+            -- then try our custom function
             function(c) -- c = cmp
               -- if cmp is visible, accept the current completion
               if c.is_visible() then
@@ -649,8 +651,6 @@ require('lazy').setup({
               -- otherwise fall back to the normal select‑and‑accept
               return c.select_and_accept()
             end,
-            -- then still do the normal snippet‑forward step (so you can tab out of snippets)
-            'snippet_forward',
             -- finally, if nothing applied, fall back to your usual <Tab>
             'fallback',
           },
