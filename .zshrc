@@ -78,7 +78,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git web-search)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -123,18 +123,20 @@ export PATH="$HOME/ltex-ls/bin:$PATH"
 #### Shell command alias ####
 
 # quick uni cd
-alias au="cd ~/Documents/AU/5.\ Semester/"
+alias au="cd ~/Documents/AU/7.\ Semester/"
 alias au1="cd ~/Documents/AU/1.\ Semester/"
 alias au2="cd ~/Documents/AU/2.\ Semester/"
 alias au3="cd ~/Documents/AU/3.\ Semester/"
 alias au4="cd ~/Documents/AU/4.\ Semester/"
 alias au5="cd ~/Documents/AU/5.\ Semester/"
 alias au6="cd ~/Documents/AU/6.\ Semester/"
+alias au7="cd ~/Documents/AU/7.\ Semester/"
 
-
-alias vid="cd ~/Documents/AU/6.\ Semester/Videregående\ Sandsynlighedsteori/;  cc Noter/; cd .."
-alias pro="cd ~/Documents/AU/6.\ Semester/Stokastiske\ Processer/; cc Noter/; cd .."
 alias bsc="cd ~/Documents/AU/6.\ Semester/Bachelorprojekt/projekt/"
+
+
+# cli alias
+alias lg='lazygit'
 
 # current course
 
@@ -157,6 +159,9 @@ function mknote(){
 # Shell plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-alias lg='lazygit'
-
+    autoload -Uz compinit
+    compinit
+  fi
