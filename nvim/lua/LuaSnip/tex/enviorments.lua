@@ -30,6 +30,7 @@ local ms = ls.multi_snippet
 local tex = require 'LuaSnip.luasnip-tex-utils'
 local make_condition = require('luasnip.extras.conditions').make_condition
 local in_bullets = make_condition(tex.in_bullets)
+local in_text = make_condition(tex.in_text)
 
 -- Generating functions for Matrix
 local generate_matrix = function(args, snip)
@@ -73,6 +74,29 @@ local generate_cases = function(args, snip)
   return sn(nil, nodes)
 end
 
+--- Generating function for tabular
+local tab = function(_, snip)
+  local rows = tonumber(snip.captures[1])
+  local cols = tonumber(snip.captures[2])
+  local nodes = {}
+  local ins_indx = 1
+  for j = 1, rows do
+    table.insert(nodes, r(ins_indx, tostring(j) .. 'x1', i(1)))
+    ins_indx = ins_indx + 1
+    for k = 2, cols do
+      table.insert(nodes, t ' & ')
+      table.insert(nodes, r(ins_indx, tostring(j) .. 'x' .. tostring(k), i(1)))
+      ins_indx = ins_indx + 1
+    end
+    table.insert(nodes, t { '\\\\', '' })
+    if j == 1 then
+      table.insert(nodes, t { '\\midrule', '' })
+    end
+  end
+  nodes[#nodes] = t '\\\\'
+  return sn(nil, nodes)
+end
+
 return {
   s(
     { trig = 'beg', snippetType = 'autosnippet' },
@@ -112,7 +136,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = tex.line_begin, show_condition = tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
     { trig = 'ali', snippetType = 'autosnippet', name = 'align', dscr = 'align math' },
@@ -125,7 +149,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = tex.line_begin, show_condition = tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
     { trig = 'eq', snippetType = 'autosnippet', name = 'equation', dscr = 'equation environment' },
@@ -138,7 +162,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = tex.line_begin, show_condition = tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
 
   -- Matrices and Cases generating snippets
@@ -190,7 +214,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = tex.in_text and tex.line_begin, show_condition = tex.in_text and tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
     { trig = 'enum', name = 'enumerate', dscr = 'numbered list (enumerate)', snippetType = 'autosnippet' },
@@ -203,7 +227,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = tex.in_text and tex.line_begin, show_condition = tex.in_text and tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
     { trig = 'desc', name = 'description', dscr = 'description list (description)', snippetType = 'autosnippet' },
@@ -216,7 +240,7 @@ return {
     ]],
       { i(1), i(2), i(0) }
     ),
-    { condition = tex.in_text and tex.line_begin, show_condition = tex.in_text and tex.show_line_begin }
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   -- Generate new bullet points
   s(
@@ -233,5 +257,171 @@ return {
       { i(1), i(0) }
     ),
     { condition = in_bullets * tex.line_begin, show_condition = in_bullets * tex.show_line_begin }
+  ),
+
+  -- Theorems and similar environments
+  s(
+    { trig = 'theo', name = 'theorem', dscr = 'theorem environment' },
+    fmta(
+      [[ 
+    \begin{theorem}
+    <>
+    \end{theorem}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'prop', name = 'proposition', dscr = 'proposition environment' },
+    fmta(
+      [[ 
+    \begin{proposition}
+    <>
+    \end{proposition}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'lem', name = 'lemma', dscr = 'lemma environment' },
+    fmta(
+      [[ 
+    \begin{lemma}
+    <>
+    \end{lemma}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'cor', name = 'corollary', dscr = 'corollary environment' },
+    fmta(
+      [[ 
+    \begin{corollary}
+    <>
+    \end{corollary}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'def', name = 'definition', dscr = 'definition environment' },
+    fmta(
+      [[ 
+    \begin{definition}
+    <>
+    \end{definition}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'ex', name = 'example', dscr = 'example environment' },
+    fmta(
+      [[ 
+    \begin{example}
+    <>
+    \end{example}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'rem', name = 'remark', dscr = 'remark environment' },
+    fmta(
+      [[ 
+    \begin{remark}
+    <>
+    \end{remark}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'proof', name = 'proof', dscr = 'proof environment' },
+    fmta(
+      [[ 
+    \begin{proof}
+    <>
+    \qed
+    \end{proof}
+    <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+
+  --- figure and table environments
+  s(
+    { trig = 'fig', name = 'figure', dscr = 'figure environment' },
+    fmta(
+      [[ 
+    \begin{figure}
+    \centering
+    <>
+    \caption{<>}
+    \label{<>}
+    \end{figure}
+    <>
+    ]],
+      { i(1), i(2), i(3), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = 'tab(%d+)x(%d+)', trigEngine = 'pattern', name = 'table enviorment', dscr = 'generate table enviorment', hidden = true },
+    fmta(
+      [[
+    \begin{table}
+    \centering 
+    \begin{tabular}{@{}<>@{}}
+    \toprule
+    <>
+    \bottomrule
+    \end{tabular}
+    \caption{<>}  
+    \label{<>}  
+    \end{table}  
+    <>
+    ]],
+      { f(function(_, snip)
+        return string.rep('c', tonumber(snip.captures[2]) or 1)
+      end), d(1, tab), i(2, 'Caption'), i(3, 'label'), i(0) }
+    )
+  ),
+  s(
+    { trig = 'tab', name = 'table enviorment', dscr = 'table environment' },
+    fmta(
+      [[
+    \begin{table}
+    \centering
+    \begin{tabular}{@{}c@{}}
+    \toprule
+    <>
+    \bottomrule
+    \end{tabular}
+    \caption{<>}
+    \label{<>}
+    \end{table}
+    <>
+    ]],
+      { i(1), i(2, 'Caption'), i(3, 'label'), i(0) }
+    ),
+    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
 }

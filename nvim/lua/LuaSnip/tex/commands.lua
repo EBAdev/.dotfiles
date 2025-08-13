@@ -224,6 +224,22 @@ local single_command_specs = {
     },
     command = [[\parencite]],
   },
+  inp = {
+    context = {
+      name = 'input',
+      dscr = 'input file',
+      snippetType = 'autosnippet',
+    },
+    command = [[\input]],
+  },
+  inc = {
+    context = {
+      name = 'include',
+      dscr = 'include file',
+      snippetType = 'autosnippet',
+    },
+    command = [[\include]],
+  },
 }
 
 local single_command_snippets = {}

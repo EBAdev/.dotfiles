@@ -29,119 +29,114 @@ local ms = ls.multi_snippet
 
 local tex = require 'LuaSnip.luasnip-tex-utils'
 
-return {
-  s({ trig = '=>', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\implies',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '=<', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\impliedby',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'iff', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\iff',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '...', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\ldots',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '<=', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\le',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '>=', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\ge',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'AA', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\forall',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'EE', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\E',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'VV', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\V',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'NN', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\N',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'QQ', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Q',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'RR', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\R',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'CC', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\C',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'ZZ', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Z',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'PP', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\PP',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'xx', wordTrig = false, priority = 100, snippetType = 'autosnippet' }, {
-    t '\\times',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'oxx', wordTrig = false, priority = 1000, snippetType = 'autosnippet' }, {
-    t '\\otimes',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '**', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\cdot',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'max', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\max',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'min', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\min',
-  }, { condition = tex.in_math, show_condition = tex.in_math, priority = 100 }), -- Conflict with in
-  s({ trig = 'dd', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\d',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'to', wordTrig = false, priority = 100, snippetType = 'autosnippet' }, {
-    t '\\to',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'mto', wordTrig = false, priority = 1000, snippetType = 'autosnippet' }, {
-    t '\\mapsto',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'in', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\in',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'ni', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\ni',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '->', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\rightarrow',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '<-', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\leftarrow',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '<->', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\leftrightarrow',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '\\\\\\', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\setminus',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '<<', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\ll',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '>>', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\gg',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '||', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\mid',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'cc', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\subseteq',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'sub', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\subseteq',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'sup', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\supseteq',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'øø', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\emptyset',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'notin', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\not\\in',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'notni', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\not\\ni',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
+local symbol_snippet = function(context, command, opts)
+  opts = opts or {}
+  if not context.trig then
+    error("context doesn't include a `trig` key which is mandatory", 2)
+  end
+  context.dscr = context.dscr or command
+  context.name = context.name or command:gsub([[\]], '')
+  context.docstring = context.docstring or (command .. [[{0}]])
+  context.wordTrig = context.wordTrig or false
+  context.snippetType = context.snippetType or 'autosnippet'
+  local j, _ = string.find(command, context.trig)
+  if j == 2 then -- command always starts with backslash
+    context.trigEngine = 'ecma'
+    context.trig = '(?<!\\\\)' .. '(' .. context.trig .. ')'
+    context.hidden = true
+  end
+  return s(context, t(command), opts)
+end
+
+M = {}
+
+local symbol_specs = {
+  ---  Arrows
+  ['=>'] = { context = { name = '⇒' }, command = [[\implies]] },
+  ['=<'] = { context = { name = '⇐' }, command = [[\impliedby]] },
+  iff = { context = { name = '⟺' }, command = [[\iff]] },
+  ['->'] = { context = { name = '→', priority = 250 }, command = [[\to]] },
+  ['!>'] = { context = { name = '↦' }, command = [[\mapsto]] },
+  ['<-'] = { context = { name = '↦', priority = 250 }, command = [[\leftarrow]] },
+  ['-->'] = { context = { name = '⟶', priority = 500 }, command = [[\longrightarrow]] },
+  ['<--'] = { context = { name = '⟶', priority = 500 }, command = [[\longrightarrow]] },
+  ['<->'] = { context = { name = '↔', priority = 500 }, command = [[\leftrightarrow]] },
+  uar = { context = { name = '↑' }, command = [[\uparrow]] },
+  dar = { context = { name = '↓' }, command = [[\downarrow]] },
+
+  --- Math operators
+  AA = { context = { name = '∀' }, command = [[\forall]] },
+  ex = { context = { name = '∃' }, command = [[\exists]] },
+  ['!='] = { context = { name = '!=' }, command = [[\neq]] },
+  ['<='] = { context = { name = '≤' }, command = [[\le]] },
+  ['>='] = { context = { name = '≥' }, command = [[\ge]] },
+  ['<<'] = { context = { name = '<<' }, command = [[\ll]] },
+  ['>>'] = { context = { name = '>>' }, command = [[\gg]] },
+  sim = { context = { name = '~' }, command = [[\sim]] },
+  app = { context = { name = '≈' }, command = [[\approx]] },
+  eqv = { context = { name = '≡' }, command = [[\equiv]] },
+  ['**'] = { context = { name = '·', priority = 100 }, command = [[\cdot]] },
+  xx = { context = { name = '×' }, command = [[\times]] },
+  ['op'] = { context = { name = '⊕' }, command = [[\oplus]] },
+  ['ox'] = { context = { name = '⊗' }, command = [[\otimes]] },
+  ['...'] = { context = { name = '…' }, command = [[\ldots]] },
+  ['||'] = { context = { name = '∣' }, command = [[\mid]] },
+  ['inn'] = { context = { name = '∈', priority = 100 }, command = [[\in]] }, --- Conflicts with sin and min
+  ['ni'] = { context = { name = '∋' }, command = [[\ni]] },
+  notni = { context = { name = '∌' }, command = [[\not\ni]] },
+  notin = { context = { name = '∉' }, command = [[\not\in]] },
+  cap = { context = { name = '∩' }, command = [[\cap]] },
+  cup = { context = { name = '∪' }, command = [[\cup]] },
+  cq = { context = { name = '⊂' }, command = [[\subset]] },
+  cc = { context = { name = '⊆' }, command = [[\subseteq]] },
+  qc = { context = { name = '⊃' }, command = [[\supset]] },
+  qq = { context = { name = '⊇' }, command = [[\supseteq]] },
+  ['\\\\\\'] = { context = { name = '⧵' }, command = [[\setminus]] },
+
+  --- Blackboard bold symbols
+  NN = { context = { name = 'ℕ' }, command = [[\N]] },
+  ZZ = { context = { name = 'ℤ' }, command = [[\Z]] },
+  QQ = { context = { name = 'ℚ' }, command = [[\Q]] },
+  RR = { context = { name = 'ℝ' }, command = [[\R]] },
+  CC = { context = { name = 'ℂ' }, command = [[\C]] },
+  PP = { context = { name = 'ℙ' }, command = [[\P]] },
+  EE = { context = { name = '𝔼' }, command = [[\E]] },
+  VV = { context = { name = '𝕍' }, command = [[\V]] },
+  --- Math Caligraphic symbols
+  LL = { context = { name = 'ℒ' }, command = [[\L]] },
+  MM = { context = { name = 'ℳ' }, command = [[\M]] },
+  SS = { context = { name = '𝒮' }, command = [[\S]] },
+  FF = { context = { name = 'ℱ' }, command = [[\F]] },
+  TT = { context = { name = '𝒯' }, command = [[\T]] },
+  BB = { context = { name = 'ℬ' }, command = [[\B]] },
+  HH = { context = { name = 'ℋ' }, command = [[\H]] },
+  --- Math Fraktur symbols
+  XX = { context = { name = '𝖃' }, command = [[\X]] },
+  YY = { context = { name = '𝖄' }, command = [[\Y]] },
+
+  -- quantifiers and logic stuffs
+  ['or'] = { context = { name = '∨' }, command = [[\wedge]] },
+  ['and'] = { context = { name = '∧' }, command = [[\vee]] },
+  dd = { context = { name = 'd' }, command = [[\d]] },
+  dp = { context = { name = '∂' }, command = [[\partial]] },
+
+  -- etc
+  ['øø'] = { context = { name = '∅' }, command = [[\emptyset]] },
+  pwr = { context = { name = 'P' }, command = [[\powerset]] },
+  ooo = { context = { name = '∞' }, command = [[\infty]] },
+  ll = { context = { name = 'ℓ' }, command = [[\ell]] },
+  dag = { context = { name = '†' }, command = [[\dagger]] },
+  ['+-'] = { context = { name = '±' }, command = [[\pm]] },
+  ['-+'] = { context = { name = '∓' }, command = [[\mp]] },
 }
+
+local symbol_snippets = {}
+for k, v in pairs(symbol_specs) do
+  table.insert(
+    symbol_snippets,
+    symbol_snippet(vim.tbl_deep_extend('keep', { trig = k }, v.context), v.command, { condition = tex.in_math, show_condition = tex.in_math })
+  )
+end
+vim.list_extend(M, symbol_snippets)
+
+return M

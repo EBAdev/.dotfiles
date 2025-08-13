@@ -45,15 +45,15 @@ return {
     d(1, tex.get_visual),
     t ' \\right\\}',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '||', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\left| ',
-    d(1, tex.get_visual),
-    t ' \\right|',
-  }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '<>', wordTrig = false, snippetType = 'autosnippet' }, {
     t '\\left\\langle ',
     d(1, tex.get_visual),
     t ' \\right\\rangle',
+  }, { condition = tex.in_math, show_condition = tex.in_math }),
+  s({ trig = 'abs', wordTrig = false, snippetType = 'autosnippet' }, {
+    t '\\left| ',
+    d(1, tex.get_visual),
+    t ' \\right|',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = 'norm', wordTrig = false, snippetType = 'autosnippet' }, {
     t '\\left\\| ',

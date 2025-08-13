@@ -35,10 +35,10 @@ local generate_fraction = function(_, snip)
   local depth = 0
   local j = #stripped
   while true do
-    local c = stripped:sub(j, j)
-    if c == '(' then
+    local k = stripped:sub(j, j)
+    if k == '(' then
       depth = depth + 1
-    elseif c == ')' then
+    elseif k == ')' then
       depth = depth - 1
     end
     if depth == 0 then
@@ -68,7 +68,7 @@ local auto_backslash_snippet = function(context, opts)
   context.docstring = context.docstring or ([[\]] .. context.trig)
   context.trigEngine = 'ecma'
   context.trig = '(?<!\\\\)' .. '(' .. context.trig .. ')'
-  context.SnippetType = 'autosnippet'
+  context.snippetType = 'autosnippet'
   return s(
     context,
     fmta(
@@ -83,9 +83,133 @@ local auto_backslash_snippet = function(context, opts)
   )
 end
 
+--- Single math command snippets
+local single_command_snippet = function(context, command, opts, ext)
+  opts = opts or {}
+  if not context.trig then
+    error("context doesn't include a `trig` key which is mandatory", 2)
+  end
+  context.dscr = context.dscr or command
+  context.name = context.name or context.dscr
+  local docstring, offset, cnode, lnode
+  if ext.choice == true then
+    docstring = '[' .. [[(<1>)?]] .. ']' .. [[{]] .. [[<2>]] .. [[}]] .. [[<0>]]
+    offset = 1
+    cnode = c(1, { t '', sn(nil, { t '[', i(1, 'opt'), t ']' }) })
+  else
+    docstring = [[{]] .. [[<1>]] .. [[}]] .. [[<0>]]
+  end
+  if ext.label == true then
+    docstring = [[{]] .. [[<1>]] .. [[}]] .. [[\label{(]] .. ext.short .. [[:<2>)?}]] .. [[<0>]]
+    ext.short = ext.short or command
+    lnode = c(2 + (offset or 0), {
+      t '',
+      sn(
+        nil,
+        fmta(
+          [[
+        \label{<>:<>}
+        ]],
+          { t(ext.short), i(1) }
+        )
+      ),
+    })
+  end
+  context.docstring = context.docstring or (command .. docstring)
+  local j, _ = string.find(command, context.trig)
+  if j == 2 then
+    context.trigEngine = 'ecma'
+    context.trig = '(?<!\\\\)' .. '(' .. context.trig .. ')'
+    context.hidden = true
+  end
+  -- stype = ext.stype or s
+  return s(context, fmta(command .. [[<>{<>}<><>]], { cnode or t '', d(1 + (offset or 0), tex.get_visual), (lnode or t ''), i(0) }), opts)
+end
+
+--- Get capture function for subscript and superscript
+local get_capture = function(_, snip, user_arg1, user_arg2, user_arg3)
+  -- define arguments
+  local idx = user_arg1 or 1
+  return snip.captures[idx]
+end
+
+--- postfix helper function - generates dynamic node
+local generate_postfix_dynamicnode = function(_, parent, _, user_arg1, user_arg2)
+  local capture = parent.snippet.env.POSTFIX_MATCH
+  if #capture > 0 then
+    return sn(
+      nil,
+      fmta(
+        [[
+        <><><><>
+        ]],
+        { t(user_arg1), t(capture), t(user_arg2), i(0) }
+      )
+    )
+  else
+    local visual_placeholder = parent.snippet.env.LS_SELECT_RAW
+    return sn(
+      nil,
+      fmta(
+        [[
+        <><><><>
+        ]],
+        { t(user_arg1), i(1, visual_placeholder), t(user_arg2), i(0) }
+      )
+    )
+  end
+end
+
+--- Postfix math command snippets
+local postfix_snippet = function(context, command, opts)
+  opts = opts or {}
+  if not context.trig then
+    error("context doesn't include a `trig` key which is mandatory", 2)
+  end
+  if not context.trig then
+    error("context doesn't include a `trig` key which is mandatory", 2)
+  end
+  context.dscr = context.dscr
+  context.name = context.name or context.dscr
+  context.docstring = command.pre .. [[(POSTFIX_MATCH|VISUAL|<1>)]] .. command.post
+  context.match_pattern = [[[%w%.%_%-%"%']*$]]
+  local j, _ = string.find(command.pre, context.trig)
+  if j == 2 then
+    context.trigEngine = 'ecma'
+    context.trig = '(?<!\\\\)' .. '(' .. context.trig .. ')'
+    context.hidden = true
+  end
+  return postfix(context, { d(1, generate_postfix_dynamicnode, {}, { user_args = { command.pre, command.post } }) }, opts)
+end
+
 M = {
   --- special superscripts
   s({ trig = 'sr', wordTrig = false, snippetType = 'autosnippet' }, { t '^2' }, { condition = tex.in_math, show_condition = tex.in_math }),
+  s(
+    { trig = 'rd', wordTrig = false, snippetType = 'autosnippet' },
+    fmta([[^{(<>)}<>]], { i(1), i(0) }),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { trig = '([%a%)%]%}])(%d)', trigEngine = 'pattern', name = 'auto subscript', dscr = 'auto subscript', snippetType = 'autosnippet' },
+    fmta(
+      [[
+    <>_<>
+    ]],
+      { f(get_capture, {}, { user_args = { 1 } }), f(get_capture, {}, { user_args = { 2 } }) }
+    ),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { trig = '([%a%)%]%}])_(%d%d)', trigEngine = 'pattern', name = 'auto subscript 2', dscr = 'auto subscript for 2+ digits', snippetType = 'autosnippet' },
+    fmta(
+      [[
+    <>_{<>}
+    ]],
+      { f(get_capture, {}, { user_args = { 1 } }), f(get_capture, {}, { user_args = { 2 } }) }
+    ),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
 
   --- Fracitions
   s( --- basic fraction
@@ -176,7 +300,7 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = 'dint', name = 'integral', dscr = 'integral', snippetType = 'autosnippet' },
+    { trig = 'dint', name = 'integral', dscr = 'integral', snippetType = 'autosnippet', priority = 250 },
     fmta(
       [[
     \int_{<>}^{<>} <>
@@ -215,12 +339,14 @@ M = {
     ),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
+
+  --- Special handling for conflicting symbols
 }
 
 --- Auto backslashes
 local auto_backslash_specs = {
-  'arcsin',
   'sin',
+  'argsin',
   'arccos',
   'cos',
   'arctan',
@@ -233,16 +359,18 @@ local auto_backslash_specs = {
   'exp',
   'ast',
   'star',
+  'triangle',
   'perp',
   'sup',
   'inf',
   'det',
   'max',
-  'min',
   'argmax',
   'argmin',
+  'min',
   'deg',
   'angle',
+  'int',
 }
 
 local auto_backslash_snippets = {}
@@ -250,5 +378,147 @@ for _, v in ipairs(auto_backslash_specs) do
   table.insert(auto_backslash_snippets, auto_backslash_snippet({ trig = v }, { condition = tex.in_math, show_condition = tex.in_math }))
 end
 vim.list_extend(M, auto_backslash_snippets)
+
+local single_command_math_specs = {
+  tt = {
+    context = {
+      name = 'text (math)',
+      dscr = 'text in math mode',
+    },
+    command = [[\text]],
+  },
+  bm = {
+    context = {
+      name = 'bold math',
+      dscr = 'bold math',
+    },
+    command = [[\bm]],
+  },
+  ['__'] = {
+    context = {
+      name = 'subscript',
+      dscr = 'auto subscript 3',
+      wordTrig = false,
+    },
+    command = [[_]],
+  },
+  td = {
+    context = {
+      name = 'superscript',
+      dscr = 'auto superscript alt',
+      wordTrig = false,
+    },
+    command = [[^]],
+  },
+  sq = {
+    context = {
+      name = 'sqrt',
+      dscr = 'sqrt',
+    },
+    command = [[\sqrt]],
+    ext = { choice = true },
+  },
+}
+
+local single_command_math_snippets = {}
+for k, v in pairs(single_command_math_specs) do
+  table.insert(
+    single_command_math_snippets,
+    single_command_snippet(
+      vim.tbl_deep_extend('keep', { trig = k, snippetType = 'autosnippet' }, v.context),
+      v.command,
+      { condition = tex.in_math, show_condition = tex.in_math },
+      v.ext or {}
+    )
+  )
+end
+vim.list_extend(M, single_command_math_snippets)
+
+local postfix_math_specs = {
+  mbb = {
+    context = {
+      name = 'mathbb',
+      dscr = 'math blackboard bold',
+    },
+    command = {
+      pre = [[\mathbb{]],
+      post = [[}]],
+    },
+  },
+  mcal = {
+    context = {
+      name = 'mathcal',
+      dscr = 'math calligraphic',
+    },
+    command = {
+      pre = [[\mathcal{]],
+      post = [[}]],
+    },
+  },
+  mscr = {
+    context = {
+      name = 'mathscr',
+      dscr = 'math script',
+    },
+    command = {
+      pre = [[\mathscr{]],
+      post = [[}]],
+    },
+  },
+  mfr = {
+    context = {
+      name = 'mathfrak',
+      dscr = 'mathfrak',
+    },
+    command = {
+      pre = [[\mathfrak{]],
+      post = [[}]],
+    },
+  },
+  hat = {
+    context = {
+      name = 'hat',
+      dscr = 'hat',
+    },
+    command = {
+      pre = [[\hat{]],
+      post = [[}]],
+    },
+  },
+  bar = {
+    context = {
+      name = 'bar',
+      dscr = 'bar (overline)',
+    },
+    command = {
+      pre = [[\overline{]],
+      post = [[}]],
+    },
+  },
+  tld = {
+    context = {
+      name = 'tilde',
+      priority = 500,
+      dscr = 'tilde',
+    },
+    command = {
+      pre = [[\tilde{]],
+      post = [[}]],
+    },
+  },
+}
+
+local postfix_math_snippets = {}
+for k, v in pairs(postfix_math_specs) do
+  table.insert(
+    postfix_math_snippets,
+    postfix_snippet(
+      vim.tbl_deep_extend('keep', { trig = k, snippetType = 'autosnippet' }, v.context),
+      v.command,
+      { condition = tex.in_math, show_condition = tex.in_math }
+    )
+  )
+end
+vim.list_extend(M, postfix_math_snippets)
 
 return M
