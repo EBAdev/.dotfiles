@@ -30,32 +30,32 @@ local ms = ls.multi_snippet
 local tex = require 'LuaSnip.luasnip-tex-utils'
 
 return {
-  s({ trig = '()', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = '()', wordTrig = false, snippetType = 'autosnippet', name = '()', desc = 'left right parenthesis' }, {
     t '\\left( ',
     d(1, tex.get_visual),
     t ' \\right)',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '[]', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = '[]', wordTrig = false, snippetType = 'autosnippet', name = '[]', dscr = 'left rigth bracket' }, {
     t '\\left[ ',
     d(1, tex.get_visual),
     t ' \\right]',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '{}', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = '{}', wordTrig = false, snippetType = 'autosnippet', name = '{}', dscr = 'left rigth curly bracket' }, {
     t '\\left\\{ ',
     d(1, tex.get_visual),
     t ' \\right\\}',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = '<>', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = '<>', wordTrig = false, snippetType = 'autosnippet', name = '<>', dscr = 'left right angle' }, {
     t '\\left\\langle ',
     d(1, tex.get_visual),
     t ' \\right\\rangle',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'abs', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = 'abs', wordTrig = false, snippetType = 'autosnippet', name = '||', dscr = 'left right mid (abs)' }, {
     t '\\left| ',
     d(1, tex.get_visual),
     t ' \\right|',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'norm', wordTrig = false, snippetType = 'autosnippet' }, {
+  s({ trig = 'nrm', wordTrig = false, snippetType = 'autosnippet', name = '|| ||', dscr = 'left right double mid (norm)' }, {
     t '\\left\\| ',
     d(1, tex.get_visual),
     t ' \\right\\|',

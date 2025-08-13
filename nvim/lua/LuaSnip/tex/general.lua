@@ -31,7 +31,7 @@ local tex = require 'LuaSnip.luasnip-tex-utils'
 
 return {
   s(
-    { trig = 'preamble', name = 'Preamble', dscr = 'Insert a basic Preamble for LaTeX documents' },
+    { trig = 'preamble', name = 'preamble', dscr = 'Insert a basic Preamble for LaTeX documents' },
     fmta(
       [[
     \documentclass[a4paper,oneside,article,<>]{memoir}

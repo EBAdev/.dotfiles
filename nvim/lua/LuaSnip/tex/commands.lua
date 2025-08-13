@@ -133,7 +133,7 @@ local single_command_specs = {
   chap = {
     context = {
       name = 'chapter',
-      dscr = 'chapter',
+      dscr = 'add a chapter',
       priority = 100,
     },
     command = [[\chapter]],
@@ -142,7 +142,7 @@ local single_command_specs = {
   sec = {
     context = {
       name = 'section',
-      dscr = 'section',
+      dscr = 'add a section',
       priority = 250,
     },
     command = [[\section]],
@@ -151,7 +151,7 @@ local single_command_specs = {
   ssec = {
     context = {
       name = 'subsection',
-      dscr = 'subsection',
+      dscr = 'add a subsection',
       priority = 500,
     },
     command = [[\subsection]],
@@ -160,7 +160,7 @@ local single_command_specs = {
   sssec = {
     context = {
       name = 'subsubsection',
-      dscr = 'subsubsection',
+      dscr = 'add a subsubsection',
     },
     command = [[\subsubsection]],
     ext = { label = false, short = 'sssec' },
@@ -189,20 +189,20 @@ local single_command_specs = {
   sc = {
     context = {
       name = 'textsc',
-      dscr = 'small caps',
+      dscr = 'small caps text',
     },
     command = [[\textsc]],
   },
   tu = {
     context = {
-      name = 'underline (text)',
+      name = 'underline',
       dscr = 'underlined text in non-math mode',
     },
     command = [[\underline]],
   },
   tov = {
     context = {
-      name = 'overline (text)',
+      name = 'overline',
       dscr = 'overline text in non-math mode',
     },
     command = [[\overline]],
@@ -210,7 +210,7 @@ local single_command_specs = {
   cite = {
     context = {
       name = 'citation',
-      dscr = 'bibtex citation',
+      dscr = 'add a bibtex citation',
       snippetType = 'autosnippet',
     },
     command = [[\cite]],
@@ -218,7 +218,7 @@ local single_command_specs = {
   pcite = {
     context = {
       name = 'parenthsis citation',
-      dscr = 'bibtex parenthesis citation ',
+      dscr = 'add a bibtex parenthesis citation ',
       snippetType = 'autosnippet',
       priority = 100,
     },
@@ -227,7 +227,7 @@ local single_command_specs = {
   inp = {
     context = {
       name = 'input',
-      dscr = 'input file',
+      dscr = 'input a tex file',
       snippetType = 'autosnippet',
     },
     command = [[\input]],
@@ -235,7 +235,7 @@ local single_command_specs = {
   inc = {
     context = {
       name = 'include',
-      dscr = 'include file',
+      dscr = 'include a tex file',
       snippetType = 'autosnippet',
     },
     command = [[\include]],

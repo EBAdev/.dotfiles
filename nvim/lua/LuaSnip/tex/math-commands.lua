@@ -184,9 +184,13 @@ end
 
 M = {
   --- special superscripts
-  s({ trig = 'sr', wordTrig = false, snippetType = 'autosnippet' }, { t '^2' }, { condition = tex.in_math, show_condition = tex.in_math }),
   s(
-    { trig = 'rd', wordTrig = false, snippetType = 'autosnippet' },
+    { trig = 'sr', name = 'squared', desc = 'squared', wordTrig = false, snippetType = 'autosnippet' },
+    { t '^2' },
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { trig = 'rd', name = 'diff .. times', desc = 'differentiated .. times', wordTrig = false, snippetType = 'autosnippet' },
     fmta([[^{(<>)}<>]], { i(1), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
@@ -300,7 +304,7 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = 'dint', name = 'integral', dscr = 'integral', snippetType = 'autosnippet', priority = 250 },
+    { trig = 'dint', name = 'definite integral', dscr = 'definite integral', snippetType = 'autosnippet', priority = 250 },
     fmta(
       [[
     \int_{<>}^{<>} <>
@@ -310,7 +314,7 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = 'nnn', name = 'Big intersection', dscr = 'Big intersection', snippetType = 'autosnippet' },
+    { trig = 'nnn', name = 'big intersection', dscr = 'big intersection', snippetType = 'autosnippet' },
     fmta(
       [[
     \bigcap_{<>}^{<>} <>
@@ -320,7 +324,7 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = 'uuu', name = 'Big union', dscr = 'Big union', snippetType = 'autosnippet' },
+    { trig = 'uuu', name = 'big union', dscr = 'big union', snippetType = 'autosnippet' },
     fmta(
       [[
     \bigcup_{<>}^{<>} <>
@@ -413,10 +417,18 @@ local single_command_math_specs = {
   sq = {
     context = {
       name = 'sqrt',
-      dscr = 'sqrt',
+      dscr = 'square root (sqrt)',
+      wordTrig = false,
     },
     command = [[\sqrt]],
-    ext = { choice = true },
+  },
+  set = {
+    context = {
+      name = 'set',
+      dscr = 'set',
+      wordTrig = false,
+    },
+    command = [[\set]],
   },
 }
 

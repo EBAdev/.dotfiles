@@ -99,7 +99,7 @@ end
 
 return {
   s(
-    { trig = 'beg', snippetType = 'autosnippet' },
+    { trig = 'beg', snippetType = 'autosnippet', name = 'begin environment', dscr = 'begin environment' },
     fmta(
       [[
       \begin{<>}
@@ -167,7 +167,7 @@ return {
 
   -- Matrices and Cases generating snippets
   s(
-    { trig = '([bBpvV])mat(%d+)x(%d+)', name = '[bBpvV]matrix', dscr = 'matrices', regTrig = true, snippetType = 'autosnippet', hidden = true },
+    { trig = '([bBpvV])mat(%d+)x(%d+)', name = '[bBpvV]matrix', dscr = 'auto generated matrix', regTrig = true, snippetType = 'autosnippet', hidden = true },
     fmta(
       [[
     \begin{<>}
@@ -189,7 +189,7 @@ return {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = '(%d?)case', name = 'cases', dscr = 'cases', regTrig = true, snippetType = 'autosnippet', hidden = true },
+    { trig = '(%d?)case', name = 'cases', dscr = 'auto generated cases', regTrig = true, snippetType = 'autosnippet', hidden = true },
     fmta(
       [[
     \begin{cases}
@@ -244,12 +244,12 @@ return {
   ),
   -- Generate new bullet points
   s(
-    { trig = 'it', hidden = true, snippetType = 'autosnippet' },
+    { trig = 'it', hidden = true, snippetType = 'autosnippet', name = 'item', dscr = 'add a item' },
     { t '\\item' },
     { condition = in_bullets * tex.line_begin, show_condition = in_bullets * tex.show_line_begin }
   ),
   s(
-    { trig = 'id', name = 'bullet point', dscr = 'bullet point with custom text', snippetType = 'autosnippet' },
+    { trig = 'id', name = 'item[]', dscr = 'add a item with custom text', snippetType = 'autosnippet' },
     fmta(
       [[ 
     \item [<>]<>
@@ -261,7 +261,7 @@ return {
 
   -- Theorems and similar environments
   s(
-    { trig = 'theo', name = 'theorem', dscr = 'theorem environment' },
+    { trig = 'theo', name = 'theorem', dscr = 'begin theorem environment' },
     fmta(
       [[ 
     \begin{theorem}
@@ -274,7 +274,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'prop', name = 'proposition', dscr = 'proposition environment' },
+    { trig = 'prop', name = 'proposition', dscr = 'begin proposition environment' },
     fmta(
       [[ 
     \begin{proposition}
@@ -287,7 +287,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'lem', name = 'lemma', dscr = 'lemma environment' },
+    { trig = 'lem', name = 'lemma', dscr = 'begin lemma environment' },
     fmta(
       [[ 
     \begin{lemma}
@@ -300,7 +300,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'cor', name = 'corollary', dscr = 'corollary environment' },
+    { trig = 'cor', name = 'corollary', dscr = 'begin corollary environment' },
     fmta(
       [[ 
     \begin{corollary}
@@ -313,7 +313,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'def', name = 'definition', dscr = 'definition environment' },
+    { trig = 'def', name = 'definition', dscr = 'begin definition environment' },
     fmta(
       [[ 
     \begin{definition}
@@ -326,7 +326,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'ex', name = 'example', dscr = 'example environment' },
+    { trig = 'ex', name = 'example', dscr = 'begin example environment' },
     fmta(
       [[ 
     \begin{example}
@@ -339,7 +339,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'rem', name = 'remark', dscr = 'remark environment' },
+    { trig = 'rem', name = 'remark', dscr = 'begin remark environment' },
     fmta(
       [[ 
     \begin{remark}
@@ -352,7 +352,7 @@ return {
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
   s(
-    { trig = 'proof', name = 'proof', dscr = 'proof environment' },
+    { trig = 'proof', name = 'proof', dscr = 'begin proof environment' },
     fmta(
       [[ 
     \begin{proof}
@@ -368,7 +368,7 @@ return {
 
   --- figure and table environments
   s(
-    { trig = 'fig', name = 'figure', dscr = 'figure environment' },
+    { trig = 'fig', name = 'figure', dscr = 'begin figure environment' },
     fmta(
       [[ 
     \begin{figure}
@@ -405,7 +405,7 @@ return {
     )
   ),
   s(
-    { trig = 'tab', name = 'table enviorment', dscr = 'table environment' },
+    { trig = 'tab', name = 'table enviorment', dscr = 'begin table environment' },
     fmta(
       [[
     \begin{table}
