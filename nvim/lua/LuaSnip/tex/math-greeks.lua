@@ -33,147 +33,144 @@ return {
   --- Greek letter snippets, autotriggered for efficiency,
   --- wordTrig allows for trigger within a word i.e. \d@a -> \d\alpha.
   s({ trig = '@a', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\alpha ',
+    t '\\alpha',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@A', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Alpha ',
+    t '\\Alpha',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-
   s({ trig = '@b', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\beta ',
+    t '\\beta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-
   s({ trig = '@B', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Beta ',
+    t '\\Beta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-
   s({ trig = '@g', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\gamma ',
+    t '\\gamma',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@G', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Gamma ',
+    t '\\Gamma',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@d', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\delta ',
+    t '\\delta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@D', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Delta ',
+    t '\\Delta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@l', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\lambda ',
+    t '\\lambda',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@L', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Lambda ',
+    t '\\Lambda',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@f', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\phi ',
+    t '\\phi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@F', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Phi ',
+    t '\\Phi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@p', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\pi ',
+    t '\\pi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@P', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Pi ',
+    t '\\Pi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@c', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\psi ',
+    t '\\psi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@C', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Psi ',
+    t '\\Psi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@s', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\sigma ',
+    t '\\sigma',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@S', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Sigma ',
+    t '\\Sigma',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@y', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\upsilon ',
+    t '\\upsilon',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@Y', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Upsilon ',
+    t '\\Upsilon',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@j', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\xi ',
+    t '\\xi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@J', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Xi ',
+    t '\\Xi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@o', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\omega ',
+    t '\\omega',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@O', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Omega ',
+    t '\\Omega',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@e', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\epsilon ',
+    t '\\epsilon',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@E', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Epsilon ',
+    t '\\Epsilon',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@z', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\zeta ',
+    t '\\zeta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@Z', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Zeta ',
+    t '\\Zeta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@h', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\eta ',
+    t '\\eta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@H', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Eta ',
+    t '\\Eta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@u', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\theta ',
+    t '\\theta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@U', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Theta ',
+    t '\\Theta',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@i', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\iota ',
+    t '\\iota',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@I', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Iota ',
+    t '\\Iota',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@k', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\kappa ',
+    t '\\kappa',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@K', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Kappa ',
+    t '\\Kappa',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@m', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\mu ',
+    t '\\mu',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@M', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Mu ',
+    t '\\Mu',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@n', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\nu ',
+    t '\\nu',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@N', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Nu ',
+    t '\\Nu',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@r', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\rho ',
+    t '\\rho',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@R', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Rho ',
+    t '\\Rho',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@t', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\tau ',
+    t '\\tau',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@T', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Tau ',
+    t '\\Tau',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@x', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\chi ',
+    t '\\chi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
   s({ trig = '@X', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\Chi ',
+    t '\\Chi',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
-  s({ trig = 'nabl', wordTrig = false, snippetType = 'autosnippet' }, {
-    t '\\nabla ',
+  s({ trig = 'nab', wordTrig = false, snippetType = 'autosnippet' }, {
+    t '\\nabla',
   }, { condition = tex.in_math, show_condition = tex.in_math }),
 }
