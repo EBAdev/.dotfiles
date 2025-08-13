@@ -15,6 +15,34 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_gitignored = true,
+        hide_by_pattern = { -- glob style patterns
+          '*.pdf',
+          '*.log',
+          '*.tmp',
+          '*.bak',
+          '*.swp',
+          '*.aux',
+          '*.out',
+          '*.toc',
+          '*.dvi',
+          '*.fdb_latexmk',
+          '*.fls',
+          '*.synctex.gz',
+          '*.bbl',
+          '*.blg',
+          '*.run.xml',
+          '*.bcf',
+        },
+        hide_by_name = {
+          'node_modules',
+          '.DS_Store',
+          'thumbs.db',
+          '.git',
+        },
+      },
       window = {
         mappings = {
           ['<leader>e'] = 'close_window',

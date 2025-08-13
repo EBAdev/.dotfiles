@@ -97,6 +97,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- keybinds to save
+vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = '[W]rite (save) the current file' })
+
 -- NOTE: [[ Autocommands ]]
 
 -- Highlight when yanking (copying) text
@@ -233,6 +236,12 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          luasnip = {
+            -- This extension allows you to search for snippets in Telescope
+            --  See `:help telescope-extensions-luasnip`
+            show_snippets = true, -- Show snippets in the results
+            show_snippet_text = true, -- Show snippet text in the results
+          },
         },
       }
 
@@ -252,6 +261,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>sl', '<cmd>Telescope luasnip<CR>', { desc = '[S]earch [L]uasnip Snippets' })
 
       -- example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
