@@ -99,6 +99,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- keybinds to save
 vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = '[W]rite (save) the current file' })
+-- keybinds to quit
+vim.keymap.set('n', 'zz', '<cmd>quit<CR>', { desc = '[Z]ip and [Z]oom out (quit)' })
 
 -- NOTE: [[ Autocommands ]]
 
@@ -525,6 +527,10 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'isort', -- Used to sort Python imports
+        'black', -- Used to format Python code
+        'markdownlint', -- Used to lint Markdown files
+        'flake8', -- Used to lint Python files
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -827,7 +833,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug', -- Enable if in need of debugger
   --require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint', -- linting (currently only for markdown)
+  require 'kickstart.plugins.lint', -- linting (currently only for markdown)
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree', -- file explorer
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps

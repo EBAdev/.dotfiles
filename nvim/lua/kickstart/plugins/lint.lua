@@ -7,6 +7,7 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        python = { 'flake8' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -40,6 +41,14 @@ return {
       -- lint.linters_by_ft['ruby'] = nil
       -- lint.linters_by_ft['terraform'] = nil
       -- lint.linters_by_ft['text'] = nil
+      --
+
+      -- Set the maximum line length for the flake8 linter to much larger than
+      -- the default of 79 characters.
+      local flake8 = lint.linters.flake8
+      if flake8 then
+        flake8.args = { '--max-line-length=400' }
+      end
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
