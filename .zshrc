@@ -134,6 +134,23 @@ alias au7="cd ~/Documents/AU/7.\ Semester/"
 
 alias bsc="cd ~/Documents/AU/6.\ Semester/Bachelorprojekt/projekt/"
 
+# function to create a new latex document 
+function texdoc(){
+  if [ -z "$1" ]; then # Check if project name is provided 
+    echo "Usage: texdoc <project_name>"
+    return 1
+  fi
+  mkdir "$1" && mkdir "$1/figures" && touch "$1/$1.tex"
+}  
+
+# function to create a new latex project
+function texproject(){
+  if [ -z "$1" ]; then # Check if project name is provided 
+    echo "Usage: texproject <project_name>"
+    return 1
+  fi
+  mkdir "$1" && mkdir  "$1/figures" && mkdir "$1/chapters" && touch "$1/$1.tex" && touch "$1/chapters/chapter-1.tex"    
+}  
 
 # cli alias
 alias lg='lazygit'
@@ -148,10 +165,6 @@ function cc() {
   ln -sfn "$abs_path/$1" ~/.current_course && cd "$1"
 }
 
-# NEW function mknote creates a note directory and figures directory inside.
-function mknote(){
-  mkdir "$1" && mkdir "$1/figures"
-}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
