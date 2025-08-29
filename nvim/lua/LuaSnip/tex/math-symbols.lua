@@ -48,7 +48,18 @@ local symbol_snippet = function(context, command, opts)
   return s(context, t(command), opts)
 end
 
-M = {}
+M = { -- Custom snippets
+  s(
+    { trig = '==', snippetType = 'autosnippet', name = '&=', dscr = 'aligned equality' },
+    fmta(
+      [[
+    &=<> \\ <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = tex.in_align, show_condition = tex.in_align }
+  ),
+}
 
 local symbol_specs = {
   ---  Arrows
@@ -56,7 +67,9 @@ local symbol_specs = {
   ['=<'] = { context = { name = '⇐' }, command = [[\impliedby]] },
   iff = { context = { name = '⟺' }, command = [[\iff]] },
   ['->'] = { context = { name = '→', priority = 250 }, command = [[\to]] },
+  too = { context = { name = '→', priority = 250 }, command = [[\to]] },
   ['!>'] = { context = { name = '↦' }, command = [[\mapsto]] },
+  mto = { context = { name = '↦', priority = 500 }, command = [[\mapsto]] },
   ['<-'] = { context = { name = '↦', priority = 250 }, command = [[\leftarrow]] },
   ['-->'] = { context = { name = '⟶', priority = 500 }, command = [[\longrightarrow]] },
   ['<--'] = { context = { name = '⟶', priority = 500 }, command = [[\longrightarrow]] },
@@ -77,11 +90,11 @@ local symbol_specs = {
   eqv = { context = { name = '≡' }, command = [[\equiv]] },
   ['**'] = { context = { name = '·', priority = 100 }, command = [[\cdot]] },
   xx = { context = { name = '×' }, command = [[\times]] },
-  ['op'] = { context = { name = '⊕' }, command = [[\oplus]] },
+  ['opp'] = { context = { name = '⊕' }, command = [[\oplus]] },
   ['ox'] = { context = { name = '⊗' }, command = [[\otimes]] },
   ['...'] = { context = { name = '…' }, command = [[\ldots]] },
   ['||'] = { context = { name = '∣' }, command = [[\mid]] },
-  ['inn'] = { context = { name = '∈', priority = 100 }, command = [[\in]] }, --- Conflicts with sin and min
+  ['inn'] = { context = { name = '∈', priority = 100 }, command = [[\in]] },
   ['ni'] = { context = { name = '∋' }, command = [[\ni]] },
   notni = { context = { name = '∌' }, command = [[\not\ni]] },
   notin = { context = { name = '∉' }, command = [[\not\in]] },
@@ -124,17 +137,21 @@ local symbol_specs = {
   ['øø'] = { context = { name = '∅' }, command = [[\emptyset]] },
   pwr = { context = { name = 'P' }, command = [[\powerset]] },
   ooo = { context = { name = '∞' }, command = [[\infty]] },
+  top = { context = { name = '⊤' }, command = [[\top]] },
   ll = { context = { name = 'ℓ' }, command = [[\ell]] },
   dag = { context = { name = '†' }, command = [[\dagger]] },
   ['+-'] = { context = { name = '±' }, command = [[\pm]] },
   ['-+'] = { context = { name = '∓' }, command = [[\mp]] },
+  quad = { context = { name = ' ' }, command = [[\quad]] },
+  qquad = { context = { name = '  ' }, command = [[\qquad]] },
 }
 
 local symbol_snippets = {}
 for k, v in pairs(symbol_specs) do
   table.insert(
     symbol_snippets,
-    symbol_snippet(vim.tbl_deep_extend('keep', { trig = k }, v.context), v.command, { condition = tex.in_math, show_condition = tex.in_math })
+    -- make all commands have a space after them
+    symbol_snippet(vim.tbl_deep_extend('keep', { trig = k }, v.context), v.command .. ' ', { condition = tex.in_math, show_condition = tex.in_math })
   )
 end
 vim.list_extend(M, symbol_snippets)

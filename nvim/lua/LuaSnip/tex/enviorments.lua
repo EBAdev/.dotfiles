@@ -136,7 +136,7 @@ return {
     ]],
       { i(1), i(0) }
     ),
-    { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+    { condition = in_text, show_condition = in_text }
   ),
   s(
     { trig = 'ali', snippetType = 'autosnippet', name = 'align', dscr = 'align math' },
@@ -163,6 +163,16 @@ return {
       { i(1), i(0) }
     ),
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
+  ),
+  s(
+    { trig = '==', snippetType = 'autosnippet', name = '&=', dscr = 'aligned equality' },
+    fmta(
+      [[
+    &=<> \\ <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = tex.in_align, show_condition = tex.in_align() }
   ),
 
   -- Matrices and Cases generating snippets
@@ -244,12 +254,12 @@ return {
   ),
   -- Generate new bullet points
   s(
-    { trig = 'it', hidden = true, snippetType = 'autosnippet', name = 'item', dscr = 'add a item' },
+    { trig = 'itt', hidden = true, snippetType = 'autosnippet', name = 'item', dscr = 'add a item' },
     { t '\\item' },
     { condition = in_bullets * tex.line_begin, show_condition = in_bullets * tex.show_line_begin }
   ),
   s(
-    { trig = 'id', name = 'item[]', dscr = 'add a item with custom text', snippetType = 'autosnippet' },
+    { trig = 'itd', name = 'item[]', dscr = 'add a item with custom text', snippetType = 'autosnippet' },
     fmta(
       [[ 
     \item [<>]<>

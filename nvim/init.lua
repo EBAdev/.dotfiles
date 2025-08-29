@@ -70,6 +70,10 @@ vim.o.softtabstop = 2 -- Number of spaces that a <Tab> counts for while editing
 vim.o.expandtab = true -- Use spaces instead of tabs
 vim.o.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
 
+-- set the spelling language to English and Danish
+vim.opt.spelllang = { 'en', 'da' }
+vim.opt.spell = true
+
 -- NOTE: [[ Keymaps ]]
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -102,6 +106,9 @@ vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = '[W]rite (save) the 
 -- keybinds to quit
 vim.keymap.set('n', 'zz', '<cmd>quit<CR>', { desc = '[Z]ip and [Z]oom out (quit)' })
 
+-- keybind to accept language completion suggestions
+vim.api.nvim_set_keymap('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
+
 -- NOTE: [[ Autocommands ]]
 
 -- Highlight when yanking (copying) text
@@ -127,6 +134,15 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpMenuClose',
   callback = function()
     vim.b.copilot_suggestion_hidden = false
+  end,
+})
+
+-- Hard wrap text in LaTeX files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'tex',
+  callback = function()
+    vim.opt_local.textwidth = 100 -- insert a line break after 88 chars
+    vim.opt_local.formatoptions:append 't' -- auto-wrap text
   end,
 })
 
@@ -489,8 +505,15 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {}, -- Python
-        --texlab = {}, -- LaTeX completion
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                ignore = { '*' },
+              },
+            },
+          },
+        },
         ltex = {
           settings = {
             latex = {
@@ -530,12 +553,12 @@ require('lazy').setup({
         'isort', -- Used to sort Python imports
         'black', -- Used to format Python code
         'markdownlint', -- Used to lint Markdown files
-        'flake8', -- Used to lint Python files
+        'ruff', -- Used to lint Python files
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (We populate installs via mason-tool-installer)
+        ensure_installed = vim.tbl_keys(servers), -- explicitly set to an empty table (We populate installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -544,9 +567,14 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            print('Configuring LSP: ' .. server_name)
             require('lspconfig')[server_name].setup(server)
           end,
         },
+        --- Ensure settings are loaded, since this is not always the case for some reason
+        require('lspconfig').pyright.setup(servers.pyright),
+        require('lspconfig').lua_ls.setup(servers.lua_ls),
+        require('lspconfig').ltex.setup(servers.ltex),
       }
     end,
   },
@@ -612,6 +640,7 @@ require('lazy').setup({
           return 'make install_jsregexp'
         end)(),
         dependencies = {
+          'lervag/vimtex', -- needed for LaTeX snippets
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
@@ -619,7 +648,7 @@ require('lazy').setup({
             'rafamadriz/friendly-snippets',
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load {
-                exclude = { 'latex', 'tex' }, -- Exclude LaTeX snippets, since they conflict with `custom snippets`
+                exclude = { 'latex', 'tex', 'all' }, -- Exclude LaTeX snippets, since they conflict with `custom snippets`
               }
               -- Load custom snippets from the `LuaSnip` directory
               require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/lua/LuaSnip/' }

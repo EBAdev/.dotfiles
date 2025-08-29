@@ -195,22 +195,72 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = '([%a%)%]%}])(%d)', trigEngine = 'pattern', name = 'auto subscript', dscr = 'auto subscript', snippetType = 'autosnippet' },
+    { -- a1 -> a_1 or \alpha1 -> \alpha_1
+      trig = [[(\\[a-zA-Z]+|[a-zA-Z]+|\)|\}|\])(\d)]],
+      trigEngine = 'ecma',
+      name = 'auto subscript',
+      dscr = 'auto subscript (1 digits)',
+      snippetType = 'autosnippet',
+    },
+    f(function(_, snip)
+      local head, digits = snip.captures[1], snip.captures[2]
+      return head .. '_' .. digits
+    end, {}),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { -- a_11 -> a_{11} or \alpha_11 -> \alpha_{11}
+      trig = [[(\\[a-zA-Z]+|[a-zA-Z]+|\)|\}|\])_(\d\d)]], -- ECMA regex: \w = [A-Za-z]
+      trigEngine = 'ecma',
+      name = 'auto subscript',
+      dscr = 'auto subscript (2 digits)',
+      snippetType = 'autosnippet',
+    },
+    f(function(_, snip)
+      local head, digits = snip.captures[1], snip.captures[2]
+      return head .. '_{' .. digits .. '}'
+    end, {}),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+
+  --- Over and under set and brace
+  s(
+    { trig = 'over', name = 'overset', dscr = 'overset', snippetType = 'autosnippet' },
     fmta(
       [[
-    <>_<>
+    \overset{<>}{<>}<>
     ]],
-      { f(get_capture, {}, { user_args = { 1 } }), f(get_capture, {}, { user_args = { 2 } }) }
+      { i(1, 'top'), i(2, 'bottom'), i(0) }
     ),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = '([%a%)%]%}])_(%d%d)', trigEngine = 'pattern', name = 'auto subscript 2', dscr = 'auto subscript for 2+ digits', snippetType = 'autosnippet' },
+    { trig = 'under', name = 'underset', dscr = 'underset', snippetType = 'autosnippet' },
     fmta(
       [[
-    <>_{<>}
+    \underset{<>}{<>}<>
     ]],
-      { f(get_capture, {}, { user_args = { 1 } }), f(get_capture, {}, { user_args = { 2 } }) }
+      { i(1, 'bottom'), i(2, 'top'), i(0) }
+    ),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { trig = 'obr', name = 'overbrace', dscr = 'overbrace', snippetType = 'autosnippet' },
+    fmta(
+      [[
+    \overbrace{<>}^{<>}<>
+    ]],
+      { i(1), i(2, 'top'), i(0) }
+    ),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
+  s(
+    { trig = 'ubr', name = 'underbrace', dscr = 'underbrace', snippetType = 'autosnippet' },
+    fmta(
+      [[
+    \underbrace{<>}_{<>}<>
+    ]],
+      { i(1), i(2, 'bottom'), i(0) }
     ),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
@@ -343,6 +393,16 @@ M = {
     ),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
+  s(
+    { trig = 'set', name = 'set', dscr = 'set notation', snippetType = 'autosnippet' },
+    fmta(
+      [[
+    \{<> \} <>
+    ]],
+      { i(1), i(0) }
+    ),
+    { condition = tex.in_math, show_condition = tex.in_math }
+  ),
 
   --- Special handling for conflicting symbols
 }
@@ -398,6 +458,13 @@ local single_command_math_specs = {
     },
     command = [[\bm]],
   },
+  mth = {
+    context = {
+      name = 'mathrm',
+      dscr = 'math roman (mathrm)',
+    },
+    command = [[\mathrm]],
+  },
   ['__'] = {
     context = {
       name = 'subscript',
@@ -421,14 +488,6 @@ local single_command_math_specs = {
       wordTrig = false,
     },
     command = [[\sqrt]],
-  },
-  set = {
-    context = {
-      name = 'set',
-      dscr = 'set',
-      wordTrig = false,
-    },
-    command = [[\set]],
   },
 }
 

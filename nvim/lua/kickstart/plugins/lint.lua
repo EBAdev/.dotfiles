@@ -7,7 +7,7 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
-        python = { 'flake8' },
+        python = { 'ruff' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -43,12 +43,10 @@ return {
       -- lint.linters_by_ft['text'] = nil
       --
 
-      -- Set the maximum line length for the flake8 linter to much larger than
-      -- the default of 79 characters.
-      local flake8 = lint.linters.flake8
-      if flake8 then
-        flake8.args = { '--max-line-length=400' }
-      end
+      -- Remove overlap with Pyright and Black
+
+      local ruff = lint.linters.ruff
+      ruff.args = { '--ignore=F821' } -- Ignore "undefined name" errors, as these are  handled by Pyright
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.

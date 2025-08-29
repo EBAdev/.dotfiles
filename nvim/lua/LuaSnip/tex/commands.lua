@@ -179,6 +179,13 @@ local single_command_specs = {
     },
     command = [[\textit]],
   },
+  em = {
+    context = {
+      name = 'emph',
+      dscr = 'emphasized text',
+    },
+    command = [[\emph]],
+  },
   ttt = {
     context = {
       name = 'texttt',
@@ -224,7 +231,7 @@ local single_command_specs = {
     },
     command = [[\parencite]],
   },
-  inp = {
+  input = {
     context = {
       name = 'input',
       dscr = 'input a tex file',
@@ -232,7 +239,7 @@ local single_command_specs = {
     },
     command = [[\input]],
   },
-  inc = {
+  include = {
     context = {
       name = 'include',
       dscr = 'include a tex file',

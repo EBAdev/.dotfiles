@@ -82,33 +82,6 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh
-#
-
 # auto source python main venv
 source ~/.venv/bin/activate
 
@@ -133,6 +106,9 @@ alias au6="cd ~/Documents/AU/6.\ Semester/"
 alias au7="cd ~/Documents/AU/7.\ Semester/"
 
 alias bsc="cd ~/Documents/AU/6.\ Semester/Bachelorprojekt/projekt/"
+alias cal="cd ~/Documents/AU/7.\ Semester/Stochastic\ Calculus/" 
+alias mont="cd ~/Documents/AU/7.\ Semester/Monte\ Carlo\ Simulation/"  
+alias ph="cd ~/Documents/AU/7.\ Semester/Pricing\ \&\ Hedging/" 
 
 # function to create a new latex document 
 function texdoc(){
@@ -154,11 +130,13 @@ function texproject(){
 
 # cli alias
 alias lg='lazygit'
-
-# current course
+alias conf='nvim ~/.zshrc'  
+alias vconf='nvim ~/.config/nvim'  
+alias so='source ~/.zshrc' 
 
 alias vim="nvim"
-# NEW CD command, changes current course also.
+
+# NEW changes current course
 function cc() {
   local abs_path
   abs_path=$(pwd)
@@ -169,9 +147,9 @@ function cc() {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Shell plugins
+# Shell plugins from brew 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
