@@ -186,12 +186,12 @@ M = {
   --- special superscripts
   s(
     { trig = 'sr', name = 'squared', desc = 'squared', wordTrig = false, snippetType = 'autosnippet' },
-    { t '^2' },
+    { t '^2 ' },
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
     { trig = 'rd', name = 'diff .. times', desc = 'differentiated .. times', wordTrig = false, snippetType = 'autosnippet' },
-    fmta([[^{(<>)}<>]], { i(1), i(0) }),
+    fmta([[^{(<>)} <>]], { i(1), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
@@ -228,7 +228,7 @@ M = {
     { trig = 'over', name = 'overset', dscr = 'overset', snippetType = 'autosnippet' },
     fmta(
       [[
-    \overset{<>}{<>}<>
+    \overset{<>}{<>} <>
     ]],
       { i(1, 'top'), i(2, 'bottom'), i(0) }
     ),
@@ -238,7 +238,7 @@ M = {
     { trig = 'under', name = 'underset', dscr = 'underset', snippetType = 'autosnippet' },
     fmta(
       [[
-    \underset{<>}{<>}<>
+    \underset{<>}{<>} <>
     ]],
       { i(1, 'bottom'), i(2, 'top'), i(0) }
     ),
@@ -248,7 +248,7 @@ M = {
     { trig = 'obr', name = 'overbrace', dscr = 'overbrace', snippetType = 'autosnippet' },
     fmta(
       [[
-    \overbrace{<>}^{<>}<>
+    \overbrace{<>}^{<>} <>
     ]],
       { i(1), i(2, 'top'), i(0) }
     ),
@@ -258,7 +258,7 @@ M = {
     { trig = 'ubr', name = 'underbrace', dscr = 'underbrace', snippetType = 'autosnippet' },
     fmta(
       [[
-    \underbrace{<>}_{<>}<>
+    \underbrace{<>}_{<>} <>
     ]],
       { i(1), i(2, 'bottom'), i(0) }
     ),
@@ -270,23 +270,23 @@ M = {
     { trig = '//', name = 'fraction', dscr = 'fraction (general)', snippetType = 'autosnippet' },
     fmta(
       [[
-    \frac{<>}{<>}<>
+    \frac{<>}{<>} <>
     ]],
       { d(1, tex.get_visual), i(2), i(0) }
     ),
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
-  s( --- auto fraction between numbers and letters
+  s(
     {
-      trig = '((\\d+)|(\\d*)(\\\\)?([A-Za-z]+)((\\^|_)(\\{\\d+\\}|\\d))*)\\/',
+      trig = [[\v((\d+)|(\d*)(\\)?(\w+)((\^|_)(\{\d+\}|\d))*)/]],
       name = 'fraction',
       dscr = 'auto fraction 1',
-      trigEngine = 'ecma',
+      trigEngine = 'vim', -- use Neovim regex engine (UTF-8 safe)
       snippetType = 'autosnippet',
     },
     fmta(
       [[
-    \frac{<>}{<>}<>
+    \frac{<>}{<>} <>
     ]],
       { f(function(_, snip)
         return snip.captures[1]
@@ -384,7 +384,7 @@ M = {
     { condition = tex.in_math, show_condition = tex.in_math }
   ),
   s(
-    { trig = 'pd', name = 'partial derivative', dscr = 'partial derivative', snippetType = 'autosnippet' },
+    { trig = 'pf', name = 'partial derivative', dscr = 'partial derivative', snippetType = 'autosnippet' },
     fmta(
       [[
     \frac{\partial <>}{\partial <>} <>
@@ -397,7 +397,7 @@ M = {
     { trig = 'set', name = 'set', dscr = 'set notation', snippetType = 'autosnippet' },
     fmta(
       [[
-    \{<> \} <>
+    \{ <> \}<>
     ]],
       { i(1), i(0) }
     ),
@@ -563,6 +563,28 @@ local postfix_math_specs = {
     },
     command = {
       pre = [[\overline{]],
+      post = [[}]],
+    },
+  },
+  floor = {
+    context = {
+      name = 'floor',
+      priority = 1000,
+      dscr = 'floor',
+    },
+    command = {
+      pre = [[\floor{]],
+      post = [[}]],
+    },
+  },
+  ceil = {
+    context = {
+      name = 'ceil',
+      priority = 500,
+      dscr = 'ceil',
+    },
+    command = {
+      pre = [[\ceil{]],
       post = [[}]],
     },
   },

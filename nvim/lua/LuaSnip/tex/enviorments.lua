@@ -164,20 +164,10 @@ return {
     ),
     { condition = in_text * tex.line_begin, show_condition = in_text * tex.show_line_begin }
   ),
-  s(
-    { trig = '==', snippetType = 'autosnippet', name = '&=', dscr = 'aligned equality' },
-    fmta(
-      [[
-    &=<> \\ <>
-    ]],
-      { i(1), i(0) }
-    ),
-    { condition = tex.in_align, show_condition = tex.in_align() }
-  ),
 
   -- Matrices and Cases generating snippets
   s(
-    { trig = '([bBpvV])mat(%d+)x(%d+)', name = '[bBpvV]matrix', dscr = 'auto generated matrix', regTrig = true, snippetType = 'autosnippet', hidden = true },
+    { trig = '([bBpvV])mat_(%d+)x(%d+)', name = '[bBpvV]matrix', dscr = 'auto generated matrix', regTrig = true, snippetType = 'autosnippet', hidden = true },
     fmta(
       [[
     \begin{<>}

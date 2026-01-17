@@ -74,6 +74,9 @@ vim.o.shiftwidth = 2 -- Number of spaces to use for each step of (auto)indent
 vim.opt.spelllang = { 'en', 'da' }
 vim.opt.spell = true
 
+-- Set the border style of floating windows
+vim.o.winborder = 'rounded'
+
 -- NOTE: [[ Keymaps ]]
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -87,13 +90,13 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- is not what someone will guess without a bit more experience.
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
+-- Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- Keybinds to make split navigation easier.
+-- make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -101,13 +104,21 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- keybinds to save
+-- keybinds to save and quit files
 vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = '[W]rite (save) the current file' })
--- keybinds to quit
 vim.keymap.set('n', 'zz', '<cmd>quit<CR>', { desc = '[Z]ip and [Z]oom out (quit)' })
 
--- keybind to accept language completion suggestions
-vim.api.nvim_set_keymap('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
+-- when higlighting text in visual mode, use J and K to move the selected text up and down
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selected text down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected text up' })
+
+-- paste over currently selected text without yanking it
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste over selection without yanking it' })
+-- delete but don't yank
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = 'Delete without yanking' })
+
+-- accept language completion suggestions
+vim.keymap.set('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
 
 -- NOTE: [[ Autocommands ]]
 
@@ -540,6 +551,16 @@ require('lazy').setup({
         },
       }
 
+      -- Now setup those configurations
+      for name, config in pairs(servers) do
+        local config = config or {}
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for ts_ls)
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(name, config)
+      end
+
       -- Ensure the servers and tools above are installed
       -- To check the current status of installed tools and/or manually install
       -- other tools, you can run
@@ -555,26 +576,12 @@ require('lazy').setup({
         'markdownlint', -- Used to lint Markdown files
         'ruff', -- Used to lint Python files
       })
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = vim.tbl_keys(servers), -- explicitly set to an empty table (We populate installs via mason-tool-installer)
+        ensure_installed = {}, -- explicitly set to an empty table (We populate installs via mason-tool-installer)
         automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            print('Configuring LSP: ' .. server_name)
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-        --- Ensure settings are loaded, since this is not always the case for some reason
-        require('lspconfig').pyright.setup(servers.pyright),
-        require('lspconfig').lua_ls.setup(servers.lua_ls),
-        require('lspconfig').ltex.setup(servers.ltex),
       }
     end,
   },
@@ -673,31 +680,45 @@ require('lazy').setup({
 
     config = function()
       local cmp = require 'blink.cmp'
+      local luasnip = require 'luasnip'
       local copilot = require 'copilot.suggestion'
 
       cmp.setup {
         keymap = {
           preset = 'super-tab',
 
-          -- Override just the Tab entry to work with Copilot
+          -- Custom behavior for Tab key to integrate LuaSnip, Blink.cmp, and Copilot
+          --  The order of operations is:
+          --   1) Expand LuaSnip snippet 2) Jump forward in LuaSnip snippet
+          --   3) Accept Blink.cmp suggestion if menu is open
+          --   4) Accept Copilot suggestion 5) Fallback to normal Tab behavior
           ['<Tab>'] = {
-            -- first if possible do the normal snippet‑forward step (so you can tab out of snippets)
-            'snippet_forward',
-            -- then try our custom function
-            function(c) -- c = cmp
-              -- if cmp is visible, accept the current completion
-              if c.is_visible() then
-                return c.select_and_accept()
+            function()
+              -- 1) Expand LuaSnip snippet
+              if luasnip.expand_or_locally_jumpable() then
+                vim.schedule(function() -- Use schedule to avoid conflicts
+                  luasnip.expand_or_jump()
+                end)
+                return
               end
-              -- next, if Copilot has inline suggestion, accept it
+              -- 2) Jump forward in LuaSnip snippet
+              if luasnip.jumpable(1) then
+                luasnip.jump(1)
+                return
+              end
+              -- 3) Accept Blink-cmp top suggestion if menu is open
+              if cmp.is_visible() then
+                cmp.accept()
+                return
+              end
+              -- 4) Accept Copilot suggestion
               if copilot.is_visible() then
-                return copilot.accept()
+                copilot.accept()
+                return
               end
-              -- otherwise fall back to the normal select‑and‑accept
-              return c.select_and_accept()
+              -- 5) Fallback to normal Tab
+              return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', true)
             end,
-            -- finally, if nothing applied, fall back to your usual <Tab>
-            'fallback',
           },
         },
 
@@ -741,7 +762,7 @@ require('lazy').setup({
         completion = {
           -- By default, you may press `<c-space>` to show the documentation.
           -- Optionally, set `auto_show = true` to show the documentation after a delay.
-          documentation = { auto_show = false, auto_show_delay_ms = 500 },
+          documentation = { auto_show = true, auto_show_delay_ms = 500 },
         },
 
         sources = {
